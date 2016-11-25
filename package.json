@@ -1,0 +1,27 @@
+{
+  "name": "dj_social_network",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/itajenglish/DJSocialNetwork.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/itajenglish/DJSocialNetwork/issues"
+  },
+  "homepage": "https://github.com/itajenglish/DJSocialNetwork#readme",
+  "dependencies": {
+    "bcrypt": "^0.8.7",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "express-session": "^1.14.0",
+    "mustache-express": "^1.2.2",
+    "pg-promise": "^5.2.7"
+  }
+}
