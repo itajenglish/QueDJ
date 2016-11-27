@@ -10,6 +10,10 @@ body {
   margin-right: 30px;
 }
 
+#submitBtn{
+  float: right;
+}
+
 .btn:hover {
   background-color: white;
   color: #651fff;

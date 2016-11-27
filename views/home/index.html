@@ -62,30 +62,40 @@
       <h4>Sign Up <span class = "textColor">For Free Today</span></h4>
       <div class="divider"></div>
       <br>
-      <form class="col s12">
+      <form action = "/register" method = "POST" class="col s12">
         <div class="row">
 
           <div class="input-field col s6">
-            <input id="first_name" type="text" class="validate">
+            <input name = "first_name" id="first_name" type="text" class="validate">
             <label for="first_name">First Name</label>
           </div>
 
           <div class="input-field col s6">
-            <input id="last_name" type="text" class="validate">
+            <input name = "last_name" id="last_name" type="text" class="validate">
             <label for="last_name">Last Name</label>
           </div>
         </div>
 
         <div class="row">
-  <div class="input-field col s12">
-    <select>
-   <option  value="" disabled selected>Choose your option</option>
+          <div class="input-field col s12">
+            <select>
+   <option value="" disabled selected>Choose your option</option>
    <option value="1">Fan</option>
    <option value="2">DJ</option>
  </select>
-    <label>Account Type</label>
-  </div>
-</div>
+            <label>Account Type</label>
+          </div>
+        </div>
+
+        <div class="file-field input-field">
+          <div class="btn btnColor">
+            <span>File</span>
+            <input type="file">
+          </div>
+          <div class="file-path-wrapper">
+            <input class="file-path validate" type="text">
+          </div>
+        </div>
 
         <div class="row">
           <div class="input-field col s12">
@@ -104,9 +114,9 @@
                 <input id="password" type="password" class="validate">
                 <label for="password">Password</label>
               </div>
-
             </div>
           </div>
+          <button id="submitBtn" type="submit" class="waves-effect waves-light btn btnColor">Submit</button>
       </form>
       </div>
     </div>

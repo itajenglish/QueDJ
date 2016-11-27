@@ -3,7 +3,7 @@ var express = require('express'),
 app = express(),
 mustache = require('mustache-express'),
 pgp = require('pg-promise')(),
-db = pgp("postgres:tajenglish@localhost:5432/"),
+db = pgp("postgres:tajenglish@localhost:5432/quedj"),
 methodOverride = require('method-override'),
 bdPars = require('body-parser');
 
@@ -25,4 +25,10 @@ bdPars = require('body-parser');
 // Define Routes
   app.get('/',function(req,res){
     res.render('home/index');
+  });
+
+  app.post('/register',function(req,res){
+    data = req.body;
+    res.send(data);
+    // db.none("INSERT")
   });
