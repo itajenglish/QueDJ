@@ -78,10 +78,10 @@
 
         <div class="row">
           <div class="input-field col s12">
-            <select>
+            <select name = "accountPicker">
    <option value="" disabled selected>Choose your option</option>
-   <option value="1">Fan</option>
-   <option value="2">DJ</option>
+   <option name = "type" value="fan">Fan</option>
+   <option name = "type" value="dj">DJ</option>
  </select>
             <label>Account Type</label>
           </div>
@@ -99,19 +99,19 @@
 
         <div class="row">
           <div class="input-field col s12">
-            <input id="email" type="email" class="validate">
+            <input id="email" name = "email" type="email" class="validate">
             <label data-error="wrong" data-success="right" for="email">Email</label>
           </div>
 
           <div class="row">
             <div class="input-field col s12">
-              <input id="location" type="text" class="validate">
+              <input name = "location" id="location" type="text" class="validate">
               <label for="location">Location</label>
             </div>
 
             <div class="row">
               <div class="input-field col s12">
-                <input id="password" type="password" class="validate">
+                <input name = "password" id="password" type="password" class="validate">
                 <label for="password">Password</label>
               </div>
             </div>

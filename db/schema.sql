@@ -3,14 +3,17 @@ DROP TABLE IF EXISTS que;
 
 CREATE TABLE users(
   id SERIAL PRIMARY KEY,
-  name varchar(100) NOT NULL,
-  image varchar(250) NOT NULL,
-  bio varchar(250) NOT NULL,
+  first_name varchar(250) NOT NULL,
+  last_name varchar(250) NOT NULL,
+  email varchar(250) NOT NULL,
+  image varchar(250),
+  bio varchar(250),
   location varchar(250) NOT NULL,
-  events varchar(250) NOT NULL,
+  password varchar(250) NOT NULL,
+  events varchar(250),
   type varchar(3) NOT NULL,
-  upvotes integer NOT NULL,
-  downvotes integer NOT NULL
+  upvotes integer,
+  downvotes integer
 );
 
 CREATE TABLE que (
