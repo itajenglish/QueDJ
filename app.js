@@ -36,8 +36,9 @@ app.post('/register', function(req, res) {
   bcrypt.hash(data.password, 10, function(err, hash) {
     db.none("INSERT INTO users (first_name,last_name,type,email,location,password) VAlUES ($1,$2,$3,$4,$5,$6)",
     [data.first_name, data.last_name, data.accountPicker, data.email, data.location, hash]).then(function(data) {
-      res.send('Data post sucess!');
-    });
+      console.log(data);
+      res.redirect("/");
+      });
   });
 
 });
