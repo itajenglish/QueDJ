@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Welcome {{data.first_name}} {{data.last_name}}</title>
+  <link rel="stylesheet" href="/css/materialize.min.css">
+  <link rel="stylesheet" href="/css/userboard.css">
+</head>
+<header>
+  <nav>
+    <div class="nav-wrapper black">
+      <a href="/" class="brand-logo">Que<span class = "textColor" id = "djLogo">DJ</span></a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a class="waves-effect waves-light btn btnColor">Login</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col card m12 s12">
+        <div class="row">
+          <h3 class = "text">Search For Your Favorite <span class = "textColor">Dj's Here</span> </h3>
+          <div class="input-field col s12">
+            <input type="text" id="autocomplete-input" class="autocomplete">
+            <label for="autocomplete-input">Search For DJ's</label>
+          </div>
+        </div>
+        <div class="row">
+        <button id="submitBtn" class="waves-effect waves-light btn btnColor">Search</button>
+</div>
+      </div>
+    </div>
+
+      <ul class="collection with-header">
+        <li class="collection-header"><h4 class = "textColor">Dj's 🎶</h4></li>
+        <li class="collection-item">Alvin</li>
+        <li class="collection-item">Alvin</li>
+        <li class="collection-item">Alvin</li>
+        <li class="collection-item">Alvin</li>
+      </ul>
+  </div>
+  </div>
+  </div>
+  </div>
+  <script type="text/javascript" src="scripts/jquery.js"></script>
+  <script type="text/javascript" src="scripts/materialize.min.js"></script>
+  <script src="scripts/userboard.js"></script>
+</body>
+
+</html>

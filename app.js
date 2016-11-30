@@ -3,7 +3,7 @@ var express = require('express'),
   app = express(),
   mustache = require('mustache-express'),
   pgp = require('pg-promise')(),
-  db = pgp("postgres:tajenglish@localhost:5432/quedj"),
+  db = pgp(process.env.DATABASE || "postgres:tajenglish@localhost:5432/quedj"),
   methodOverride = require('method-override'),
   bdPars = require('body-parser'),
   bcrypt = require('bcrypt'),
@@ -36,10 +36,46 @@ app.listen(port, function() {
 });
 
 // Define Routes
+//Home Route
 app.get('/', function(req, res) {
+  var logged_in;
+  var email;
+  var user = req.session.user;
+
+  if (user) {
+    if (user.type === "fan") {
+      console.log(user.type);
+      res.redirect('/userboard');
+    } else if (user.type === "dj") {
+      res.redirect("/djboard");
+    }
+  }
   res.render('home/index');
 });
 
+//Register Route
+app.post('/register', function(req, res) {
+  var data = req.body;
+  data.first_name.toUpperCase();
+  data.last_name.toUpperCase();
+  if (data.accountPicker === "dj") {
+    bcrypt.hash(data.password, 10, function(err, hash) {
+      db.none("INSERT INTO djs (First_Name,Last_Name,type,email,location,password) VAlUES ($1,$2,$3,$4,$5,$6)", [data.first_name, data.last_name, data.accountPicker, data.email, data.location, hash]).then(function(data) {
+        console.log(data);
+        res.redirect("/");
+      });
+    });
+  } else {
+    bcrypt.hash(data.password, 10, function(err, hash) {
+      db.none("INSERT INTO fans (First_Name,Last_Name,type,email,location,password) VAlUES ($1,$2,$3,$4,$5,$6)", [data.first_name, data.last_name, data.accountPicker, data.email, data.location, hash]).then(function(data) {
+        console.log(data);
+        res.redirect("/");
+      });
+    });
+  }
+});
+
+//Login Routes
 app.get('/login', function(req, res) {
   res.render('home/login');
 });
@@ -50,43 +86,66 @@ app.post('/login', function(req, res) {
   console.log(data);
 
   db.one(
-    "(SELECT * FROM fans where email = $1) UNION (SELECT * FROM djs where email = $1)", [data.email]).catch(function() {
-    res.send('Email/Password not found.');
-  }).then(function(user) {
+    "(SELECT * FROM fans where email = $1) UNION (SELECT * FROM djs where email = $1)", [data.email])
+    .then(function(user) {
     console.log(user);
-     console.log(user.password);
-      console.log(data.password);
+    console.log(user.password);
+    console.log(data.password);
     bcrypt.compare(data.password, user.password, function(err, cmp) {
       if (cmp) {
         req.session.user = user;
-        res.redirect('/index');
+        res.redirect('/');
       } else {
         res.send('Email/Password not found.');
       }
     });
-  });
+  }).catch(function() {
+    res.send('Email/Password not found.');
+  })
+})
+//Dashboard Routes
+
+app.get('/djboard', function(req, res) {
+  var email;
+  var user = req.session.user;
+
+  if (user === undefined) {
+    res.redirect('/');
+  } else {
+    res.render('dashboards/djboard', data);
+  }
 });
 
+app.get('/userboard', function(req, res) {
+  var email;
+  var user = req.session.user;
+  var data = {data:user};
 
-app.post('/register', function(req, res) {
-  var data = req.body;
-  console.log(data);
-  if(data.accountPicker === "dj"){
-  bcrypt.hash(data.password, 10, function(err, hash) {
-    db.none("INSERT INTO djs (First_Name,Last_Name,type,email,location,password) VAlUES ($1,$2,$3,$4,$5,$6)",
-    [data.first_name, data.last_name, data.accountPicker, data.email, data.location, hash]).then(function(data) {
-      console.log(data);
-      res.redirect("/");
-      });
-  });
-}else{
-  bcrypt.hash(data.password, 10, function(err, hash) {
-    db.none("INSERT INTO fans (First_Name,Last_Name,type,email,location,password) VAlUES ($1,$2,$3,$4,$5,$6)",
-    [data.first_name, data.last_name, data.accountPicker, data.email, data.location, hash]).then(function(data) {
-      console.log(data);
-      res.redirect("/");
-      });
-  });
-}
+  if (user === undefined) {
+    res.redirect('/');
+  } else {
+    res.render('dashboards/userboard', data);
+  }
+});
 
+//Api Routes
+
+app.get('/api/',function(req,res){
+db.any('SELECT id,first_name,last_name,image FROM djs')
+.then(function(data){
+  var obj = {};
+  var data2 = data.forEach(function(value,index,arry){
+    var fname = value.first_name;
+    obj[fname] = null;
+  })
+  console.log(obj);
+  res.send(obj);
+});
+});
+
+app.get('/api/:name',function(req,res){
+db.one('SELECT id,first_name,last_name,image FROM djs WHERE first_name = $1 OR last_name = $1', [req.params.name])
+.then(function(data){
+  res.send(data);
+});
 });
