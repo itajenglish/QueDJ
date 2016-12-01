@@ -3,9 +3,9 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Welcome</title>
-  <!-- <link rel="stylesheet" href="../css/materialize.min.css">
-  <link rel="stylesheet" href="../css/userboard.css"> -->
+  <title>{{dj.first_name}} {{dj.last_name}}</title>
+  <link rel="stylesheet" href="../css/materialize.min.css">
+  <link rel="stylesheet" href="../css/djprofile.css">
 </head>
 <header>
   <nav>
@@ -19,32 +19,33 @@
 </header>
 
 <body>
-  <div class="container">
-    <div class="row">
-      <div class="col card m12 s12">
-        <div class="row">
-          <h3 class="text">Search For Your Favorite <span class = "textColor">Dj's Here</span> </h3>
-          <div class="input-field col s12">
-            <input type="text" id="autocomplete-input" class="autocomplete">
-            <label for="autocomplete-input">Search For DJ's</label>
-          </div>
-        </div>
-        <div class="row">
-          <button id="searchBtn" class="waves-effect waves-light btn btnColor">Search</button>
-        </div>
-      </div>
+  <div class="row">
+    <div class="col card m4 s12 ">
+      <div class="card-image">
+                    <img src="http://localhost:3000/{{dj.image}}">
+                  </div>
+                  <span class="card-title">{{dj.first_name}}</span> <span class = "card-title textColor">{{dj.last_name}}</span>
+                  <div class="card-content">
+                    <p>Bio - <span class = "textColor">{{dj.bio}}</span></p>
+                    <p>Location - <span class = "textColor">{{dj.location}}</span></p>
+                    <p>Up Votes - </p>
+                    <p>Down Votes - </p>
+                  </div>
+                  <!-- <div class="card-action">
+                    <a href="#">This is a link</a>
+                  </div> -->
     </div>
 
-    <ul id = "listDjs" class="collection with-header">
-      <li class="collection-header">
-        <h4 class="textColor">Dj's 🎶</h4></li>
-    </ul>
+    <div class="col card m6 s12">
+Que
+    </div>
+
+    <div class="col card m2 s12">
+Voting
+    </div>
   </div>
-  </div>
-  </div>
-  </div>
-  <!-- <script type="text/javascript" src="../scripts/jquery.js"></script>
-  <script type="text/javascript" src="../scripts/materialize.min.js"></script> -->
+  <script type="text/javascript" src="../scripts/jquery.js"></script>
+  <script type="text/javascript" src="../scripts/materialize.min.js"></script>
 </body>
 
 </html>

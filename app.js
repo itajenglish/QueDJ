@@ -131,11 +131,6 @@ app.get('/userboard', function(req, res) {
 });
 
 //Profile Routes
-// app.get('/djprofile',function(req,res){
-//   res.render('profiles/djprofile');
-// });
-
-
 app.get('/user/:fname-:lname',function(req,res){
 function capitalFunc(string){
   return string.charAt(0).toUpperCase() + string.slice(1);
@@ -144,8 +139,8 @@ var fname = capitalFunc(req.params.fname);
 var lname = capitalFunc(req.params.lname)
 db.one('SELECT * FROM djs WHERE first_name = $1 AND last_name = $2',[fname,lname])
 .then(function(data){
-  console.log(data)
-  res.render('profiles/djprofile');
+  var dbData = {dj:data};
+  res.render('profiles/djprofile', dbData);
 });
   });
 
