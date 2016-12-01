@@ -8,7 +8,8 @@ var express = require('express'),
   bdPars = require('body-parser'),
   bcrypt = require('bcrypt'),
   session = require('express-session');
-  fetchUrl = require("fetch").fetchUrl;
+  //fetch = require("fetch")
+  fetch = require('node-fetch');
 
 
 //configure express and related packages
@@ -184,12 +185,11 @@ app.get('/search',function(req,res){
 
 app.post('/itunes',function(req,res){
   var body = req.body;
-
-  fetchUrl("https://itunes.apple.com/search?term=" + body.title,
-  function(error, meta, body){
-      console.log('---------------------------------')
-      console.log('in itunes api test. result:');
-      console.log(body.toString());
-  });
+  fetch("https://itunes.apple.com/search?term=" + body.title)
+    .then(function(res2){
+      return res2.json();
+    }).then(function(json){
+      res.json(json);
+    })
 
 });
