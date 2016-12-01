@@ -10,8 +10,7 @@ $(document).ready(function() {
       data: song
     })
     .done(function(data) {
-      console.log('data:');
-      console.log(data);
+      parseData(data);
     });
   }
   searchBox.keyup(function(event){
@@ -19,6 +18,7 @@ $(document).ready(function() {
       if (searchBox.val() === "") {
 
       } else {
+        $('.collection-item').remove();
       song['title'] = searchBox.val()
       sendData();
     }
@@ -26,6 +26,7 @@ $(document).ready(function() {
   });
 
   searchButton.click(function(event) {
+    $('.collection-item').remove();
     if (searchBox.val() === "") {
 
     } else {
@@ -37,11 +38,18 @@ $(document).ready(function() {
 
 
   var parseData = function(data){
-  $('body').append(data);
+  data.results.forEach(function(value,index,arr){
+      // console.log(value)
+      var Title = value.trackName;
+      var Artist  = value.artistName;
+      var Img = value.artworkUrl30;
+      appendDom(Title,Artist,Img);
+    });
+    // var Title = data.
   }
 
-  var appendDom = function(){
-
+  var appendDom = function(Title,Artist,Img){
+    $('#listSongs').append('<li class="collection-item avatar"> <img src="' + Img + '" alt="image" class="circle"> <span class="title">'+Title+'</span> <p>' + Artist+ '</li>')
   }
 
 
