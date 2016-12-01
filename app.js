@@ -39,7 +39,6 @@ app.listen(port, function() {
 //Home Route
 app.get('/', function(req, res) {
   var logged_in;
-  var email;
   var user = req.session.user;
 
   if (user) {
@@ -55,23 +54,27 @@ app.get('/', function(req, res) {
 
 //Register Route
 app.post('/register', function(req, res) {
+  function capitalFunc(string){
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
   var data = req.body;
-  var fname = data.first_name.toUpperCase(0);
-  var lname = data.last_name.toUpperCase(0);
+  var fname = capitalFunc(data.first_name);
+  var lname = capitalFunc(data.last_name);
+  var image = "images/Music-Dj-icon.png"
   if (data.accountPicker === "dj") {
     bcrypt.hash(data.password, 10, function(err, hash) {
-      db.none("INSERT INTO djs (First_Name,Last_Name,type,email,location,password) VAlUES ($1,$2,$3,$4,$5,$6)",
-      [fname, lname, data.accountPicker, data.email, data.location, hash]).then(function(data) {
+      db.none("INSERT INTO djs (First_Name,Last_Name,type,email,image,location,password) VAlUES ($1,$2,$3,$4,$5,$6,$7)",
+      [fname, lname, data.accountPicker, data.email, image, data.location, hash]).then(function(data) {
         console.log(data);
-        res.redirect("/");
+        res.redirect("/login");
       });
     });
   } else {
     bcrypt.hash(data.password, 10, function(err, hash) {
-      db.none("INSERT INTO fans (First_Name,Last_Name,type,email,location,password) VAlUES ($1,$2,$3,$4,$5,$6)",
-      [data.first_name, data.last_name, data.accountPicker, data.email, data.location, hash]).then(function(data) {
+      db.none("INSERT INTO fans (First_Name,Last_Name,type,email,image,location,password) VAlUES ($1,$2,$3,$4,$5,$6,$7)",
+      [fname, lname, data.accountPicker, data.email, image, data.location, hash]).then(function(data) {
         console.log(data);
-        res.redirect("/");
+        res.redirect("/login");
       });
     });
   }
@@ -90,9 +93,6 @@ app.post('/login', function(req, res) {
   db.one(
     "(SELECT * FROM fans where email = $1) UNION (SELECT * FROM djs where email = $1)", [data.email])
     .then(function(user) {
-    console.log(user);
-    console.log(user.password);
-    console.log(data.password);
     bcrypt.compare(data.password, user.password, function(err, cmp) {
       if (cmp) {
         req.session.user = user;
@@ -130,44 +130,58 @@ app.get('/userboard', function(req, res) {
   }
 });
 
+//Profile Routes
+// app.get('/djprofile',function(req,res){
+//   res.render('profiles/djprofile');
+// });
+
+
+app.get('/user/:fname-:lname',function(req,res){
+function capitalFunc(string){
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+var fname = capitalFunc(req.params.fname);
+var lname = capitalFunc(req.params.lname)
+db.one('SELECT * FROM djs WHERE first_name = $1 AND last_name = $2',[fname,lname])
+.then(function(data){
+  console.log(data)
+  res.render('profiles/djprofile');
+});
+  });
+
 //Api Routes
 
 app.get('/api',function(req,res){
-db.any('SELECT id,first_name,last_name,image FROM djs')
+db.any('SELECT id,first_name,last_name,image,location FROM djs')
 .then(function(data){
   var data = JSON.stringify(data);
   res.send(data);
 });
 });
 
-app.get('/search',function(req,res){
-db.any('SELECT id,first_name,last_name,image FROM djs')
-.then(function(data){
-  var obj = {};
-  var data2 = data.forEach(function(value,index,arry){
-    var fname = value.first_name;
-    var lname = value.last_name;
-    obj[fname + " "  + lname] = null;
-  })
-  res.send(obj);
-  });
-});
 
 app.get('/api/:name',function(req,res){
   var name = req.params.name
   name = name.replace('%20',' ')
   name = name.split(' ')
-  db.any('SELECT id,first_name,last_name,image FROM djs WHERE first_name = $1 OR last_name = $2', [name[0],name[1]])
+  db.any('SELECT id,first_name,last_name,image,location FROM djs WHERE first_name = $1 OR last_name = $2', [name[0],name[1]])
   .then(function(data){
     console.log(data)
     res.send(data);
   });
 })
 
-// app.get('/api/:fname/:lname',function(req,res){
-// db.any('SELECT id,first_name,last_name,image FROM djs WHERE first_name = $1 OR last_name = $2', [req.params.fname,req.params.lname])
-// .then(function(data){
-//   console.log(data)
-//   res.send(data);
-// });
-// });
+app.get('/search',function(req,res){
+  db.any('SELECT id,first_name,last_name,image,location FROM djs')
+  .then(function(data){
+    var obj = {};
+    var data2 = data.forEach(function(value,index,arry){
+      var fname = value.first_name;
+      var lname = value.last_name;
+      var loc = value.location
+      obj[fname + " "  + lname] = null;
+      // obj[location] = loc;
+    })
+    res.send(obj);
+  });
+});
