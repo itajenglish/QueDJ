@@ -8,6 +8,8 @@ var express = require('express'),
   bdPars = require('body-parser'),
   bcrypt = require('bcrypt'),
   session = require('express-session');
+  fetchUrl = require("fetch").fetchUrl;
+
 
 //configure express and related packages
 app.engine('html', mustache());
@@ -38,7 +40,6 @@ app.listen(port, function() {
 // Define Routes
 //Home Route
 app.get('/', function(req, res) {
-  var logged_in;
   var user = req.session.user;
 
   if (user) {
@@ -179,4 +180,16 @@ app.get('/search',function(req,res){
     })
     res.send(obj);
   });
+});
+
+app.post('/itunes',function(req,res){
+  var body = req.body;
+
+  fetchUrl("https://itunes.apple.com/search?term=" + body.title,
+  function(error, meta, body){
+      console.log('---------------------------------')
+      console.log('in itunes api test. result:');
+      console.log(body.toString());
+  });
+
 });

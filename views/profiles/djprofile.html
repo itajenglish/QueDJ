@@ -28,8 +28,8 @@
                   <div class="card-content">
                     <p>Bio - <span class = "textColor">{{dj.bio}}</span></p>
                     <p>Location - <span class = "textColor">{{dj.location}}</span></p>
-                    <p>Up Votes - </p>
-                    <p>Down Votes - </p>
+                    <p>Up Votes - {{dj.upvotes}} </p>
+                    <p>Down Votes - {{dj.downvotes}} </p>
                   </div>
                   <!-- <div class="card-action">
                     <a href="#">This is a link</a>
@@ -37,7 +37,16 @@
     </div>
 
     <div class="col card m6 s12">
-Que
+      <div class="row">
+        <h4 class="text">Search Songs For The <span class = "textColor">Dj</span> To Que 🎶</h4>
+        <div class="input-field col s12">
+          <input type="text" id="autocomplete-input" class="musicSearch autocomplete">
+          <label for="autocomplete-input">Search For Songs</label>
+        </div>
+      </div>
+      <div class="row">
+        <button id="searchBtn" class="waves-effect waves-light btn btnColor">Search</button>
+      </div>
     </div>
 
     <div class="col card m2 s12">
@@ -46,6 +55,7 @@ Voting
   </div>
   <script type="text/javascript" src="../scripts/jquery.js"></script>
   <script type="text/javascript" src="../scripts/materialize.min.js"></script>
+  <script src="../scripts/djprofile.js" charset="utf-8"></script>
 </body>
 
 </html>
