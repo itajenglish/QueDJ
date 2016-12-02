@@ -10,6 +10,10 @@ body {
   text-align: center;
 }
 
+img{
+  width: 30%;
+}
+
 #searchBtn{
   float: right;
   margin-right: 30px;

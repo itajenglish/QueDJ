@@ -10,6 +10,10 @@ body {
   margin-right: 30px;
 }
 
+img{
+  width: 20%;
+}
+
 #submitBtn{
   float: right;
 }

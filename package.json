@@ -22,6 +22,7 @@
     "express": "^4.14.0",
     "express-session": "^1.14.0",
     "fetch": "^1.1.0",
+    "method-override": "^2.3.7",
     "mustache-express": "^1.2.2",
     "node-fetch": "^1.6.3",
     "pg-promise": "^5.2.7"

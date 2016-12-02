@@ -27,34 +27,14 @@
         <li class="collection-header">
           <h4>Top <span class = "textColor">Dj's</span></h4>
         </li>
+        {{#data}}
         <li class="collection-item avatar">
-          <img src="images/yuna.jpg" alt="" class="circle">
-          <span class="title">Title</span>
-          <p>First Line <br> Second Line
+          <img src="http://localhost:3000/{{image}}">
+          <span class="title">{{first_name}} {{last_name}}</span>
+          <p>{{location}} <br> {{bio}}
           </p>
-          <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
         </li>
-        <li class="collection-item avatar">
-          <i class="material-icons circle">folder</i>
-          <span class="title">Title</span>
-          <p>First Line <br> Second Line
-          </p>
-          <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-        </li>
-        <li class="collection-item avatar">
-          <i class="material-icons circle green">insert_chart</i>
-          <span class="title">Title</span>
-          <p>First Line <br> Second Line
-          </p>
-          <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-        </li>
-        <li class="collection-item avatar">
-          <i class="material-icons circle red">play_arrow</i>
-          <span class="title">Title</span>
-          <p>First Line <br> Second Line
-          </p>
-          <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-        </li>
+        {{/data}}
       </ul>
 
     </div>

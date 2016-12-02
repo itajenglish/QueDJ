@@ -20,53 +20,56 @@
 
 <body>
   <div class="row">
-    <div class="col card m4 s12 ">
+    <div class="col card m6 s12 ">
       <div class="card-image">
-                    <img src="http://localhost:3000/{{dj.image}}">
-                  </div>
-                  <span class="card-title">{{dj.first_name}}</span> <span class = "card-title textColor">{{dj.last_name}}</span>
-                  <div class="card-content">
-                    <p>DJ# - <span id = "djNum" class = "textColor">{{dj.id}}</span></p>
-                    <p>Bio - <span class = "textColor">{{dj.bio}}</span></p>
-                    <p>Location - <span class = "textColor">{{dj.location}}</span></p>
-                    <p>Up Votes - {{dj.upvotes}} </p>
-                    <p>Down Votes - {{dj.downvotes}} </p>
-                  </div>
-                  <!-- <div class="card-action">
-                    <a href="#">This is a link</a>
-                  </div> -->
+        <img src="http://localhost:3000/{{dj.image}}">
+      </div>
+      <span class="card-title">{{dj.first_name}}</span> <span class="card-title textColor">{{dj.last_name}}</span>
+      <div class="card-content">
+        <p>DJ# - <span id="djNum" class="textColor">{{dj.id}}</span></p>
+        <p>Bio - <span class="textColor">{{dj.bio}}</span></p>
+        <p>Location - <span class="textColor">{{dj.location}}</span></p>
+        <p>Up Votes - {{dj.upvotes}} </p>
+        <p>Down Votes - {{dj.downvotes}} </p>
+      </div>
     </div>
 
     <div class="col card m6 s12">
       <div class="row">
-        <h4 class="text">Que The <span class = "textColor">Dj</span>🎶</h4>
-        <div class="input-field col s12">
-          <input type="text" id="autocomplete-input" class="musicSearch autocomplete">
-          <label for="autocomplete-input">Search For Songs</label>
-        </div>
-      </div>
-      <div class="row">
-        <button id="searchBtn" class="waves-effect waves-light btn btnColor">Search</button>
+        <form action="/updateInfo?__method=PUT" method="POST" class="col s12">
+          <div class="row">
+
+            <div class="input-field col s6">
+              <input name="first_name" id="first_name" type="text" class="validate">
+              <label for="first_name">First Name</label>
+            </div>
+
+            <div class="input-field col s6">
+              <input name="last_name" id="last_name" type="text" class="validate">
+              <label for="last_name">Last Name</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s12">
+              <input name="location" id="location" type="text" class="validate">
+              <label for="location">Location</label>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12">
+                <textarea name = "bio" id="textarea1" class="materialize-textarea" length="250"></textarea>
+                <label for="textarea1">Bio</label>
+              </div>
+            </div>
+
+          </div>
+          <button id="submitBtn" type="submit" class="waves-effect waves-light btn btnColor">Update</button>
+        </form>
       </div>
     </div>
-    <div class="col card m6 s12">
-      <div class="row">
-          <ul id = "listSongs" class="collection with-header">
-            <li class="collection-header">
-              <h4 class="textColor">Songs 🎶</h4>
-            </li>
-          </ul>
-    </div>
-</div>
-    <div class="col card m2 s12">
-      <div class="row">
-        Voting
-      </div>
-    </div>
-  </div>
-  <script type="text/javascript" src="../scripts/jquery.js"></script>
-  <script type="text/javascript" src="../scripts/materialize.min.js"></script>
-  <script src="../scripts/djprofile.js" charset="utf-8"></script>
+    <script type="text/javascript" src="../scripts/jquery.js"></script>
+    <script type="text/javascript" src="../scripts/materialize.min.js"></script>
 </body>
 
 </html>
