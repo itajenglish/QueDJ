@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS users;
+-- DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS que;
 
 CREATE TABLE djs(
@@ -35,7 +35,8 @@ CREATE TABLE que (
   id SERIAL PRIMARY KEY,
   title varchar(250) NOT NULL,
   artist varchar(250) NOT NULL,
-  img varchar(250) NOT NULL,
+  album varchar(250),
+  img varchar(500),
   djs_id integer REFERENCES djs(id),
   fans_id integer REFERENCES fans(id)
 );

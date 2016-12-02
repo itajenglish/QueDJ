@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>{{dj.first_name}} {{dj.last_name}}</title>
+  <link rel="stylesheet" href="../css/materialize.min.css">
+  <link rel="stylesheet" href="../css/userprofile.css">
+</head>
+<header>
+  <nav>
+    <div class="nav-wrapper black">
+      <a href="/" class="brand-logo">Que<span class = "textColor" id = "djLogo">DJ</span></a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a class="waves-effect waves-light btn btnColor">Login</a></li>
+      </ul>
+    </div>
+  </nav>
+</header>
+
+<body>
+  <div class="row">
+    <div class="col card m4 s12 ">
+      <div class="card-image">
+                    <img src="http://localhost:3000/{{dj.image}}">
+                  </div>
+                  <span class="card-title">{{dj.first_name}}</span> <span class = "card-title textColor">{{dj.last_name}}</span>
+                  <div class="card-content">
+                    <p>DJ# - <span id = "djNum" class = "textColor">{{dj.id}}</span></p>
+                    <p>Bio - <span class = "textColor">{{dj.bio}}</span></p>
+                    <p>Location - <span class = "textColor">{{dj.location}}</span></p>
+                    <p>Up Votes - {{dj.upvotes}} </p>
+                    <p>Down Votes - {{dj.downvotes}} </p>
+                  </div>
+                  <!-- <div class="card-action">
+                    <a href="#">This is a link</a>
+                  </div> -->
+    </div>
+
+    <div class="col card m6 s12">
+      <div class="row">
+        <h4 class="text">Que The <span class = "textColor">Dj</span>🎶</h4>
+        <div class="input-field col s12">
+          <input type="text" id="autocomplete-input" class="musicSearch autocomplete">
+          <label for="autocomplete-input">Search For Songs</label>
+        </div>
+      </div>
+      <div class="row">
+        <button id="searchBtn" class="waves-effect waves-light btn btnColor">Search</button>
+      </div>
+    </div>
+    <div class="col card m6 s12">
+      <div class="row">
+          <ul id = "listSongs" class="collection with-header">
+            <li class="collection-header">
+              <h4 class="textColor">Songs 🎶</h4>
+            </li>
+          </ul>
+    </div>
+</div>
+    <div class="col card m2 s12">
+      <div class="row">
+        Voting
+      </div>
+    </div>
+  </div>
+  <script type="text/javascript" src="../scripts/jquery.js"></script>
+  <script type="text/javascript" src="../scripts/materialize.min.js"></script>
+  <script src="../scripts/userprofile.js" charset="utf-8"></script>
+</body>
+
+</html>

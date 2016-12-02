@@ -141,8 +141,9 @@ var fname = capitalFunc(req.params.fname);
 var lname = capitalFunc(req.params.lname)
 db.one('SELECT * FROM djs WHERE first_name = $1 AND last_name = $2',[fname,lname])
 .then(function(data){
+  console.log(data);
   var dbData = {dj:data};
-  res.render('profiles/djprofile', dbData);
+  res.render('profiles/userprofile', dbData);
 });
   });
 
@@ -161,7 +162,7 @@ app.get('/api/:name',function(req,res){
   var name = req.params.name
   name = name.replace('%20',' ')
   name = name.split(' ')
-  db.any('SELECT id,first_name,last_name,image,location FROM djs WHERE first_name = $1 OR last_name = $2', [name[0],name[1]])
+  db.any('SELECT id,first_name,last_name,image,location,bio FROM djs WHERE first_name = $1 OR last_name = $2', [name[0],name[1]])
   .then(function(data){
     console.log(data)
     res.send(data);
@@ -191,5 +192,19 @@ app.post('/itunes',function(req,res){
     }).then(function(json){
       res.json(json);
     })
+
+});
+
+app.post('/saveData',function(req,res){
+  data = req.body;
+  var id = data.djID;
+  var Title = data.Title;
+  var Artist = data.Artist;
+  var Album = data.Album;
+  var Image = data.Image;
+  var userID = req.session.user.id;
+  db.none('INSERT INTO QUE (title,artist,album,img,djs_id,fans_id) VALUES ($1,$2,$3,$4,$5,$6)',
+  [Title,Artist,Album,Image,id,userID]).then(function(){
+  })
 
 });
