@@ -44,7 +44,7 @@ $(document).ready(function() {
 
   var parseData = function(data){
   data.results.forEach(function(value,index,arr){
-      var Counter = index
+      var Counter = index;
       var Title = value.trackName;
       var Artist  = value.artistName;
       var Img = value.artworkUrl30;
@@ -57,7 +57,7 @@ $(document).ready(function() {
         var songData = {'djID':djID,'Title':Title,'Artist':Artist,'Album':Album,"Image":Img};
 
         $.ajax({
-          url: 'http://localhost:3000/saveData',
+          url: 'http://localhost:3000/saveQueData',
           type: 'POST',
           data: songData
         })
@@ -73,7 +73,7 @@ $(document).ready(function() {
   var appendDom = function(Title,Artist,Img,Album,Counter){
     $('#listSongs').append('<li class="collection-item avatar"> <img src="' + Img + '" alt="image" data = "{{dj.id}}" class="circle"> <span class="title">'+Title+'</span> <p>' + Artist+'</p>'+'<p>'+Album+'</p>'+'<div class = "row">'+ '<button id = "song-num'+Counter+'"" class = "addQue waves-effect waves-light btn btnColor">Que</button>' +'</div>'+'</li>')
 
-  }
+  };
 
 
 });

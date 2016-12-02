@@ -107,16 +107,16 @@ app.post('/login', function(req, res) {
     res.send('Email/Password not found.');
   })
 })
-//Dashboard Routes
 
+//Dashboard Routes
 app.get('/djboard', function(req, res) {
   var email;
   var user = req.session.user;
 
   if (user === undefined) {
     res.redirect('/');
-  } else {
-    res.render('dashboards/djboard', data);
+  } else if(user.type === 'dj') {
+    res.render('dashboards/djboard');
   }
 });
 
@@ -127,7 +127,7 @@ app.get('/userboard', function(req, res) {
 
   if (user === undefined) {
     res.redirect('/');
-  } else {
+  } else if(user.type === 'fan') {
     res.render('dashboards/userboard', data);
   }
 });
@@ -195,7 +195,7 @@ app.post('/itunes',function(req,res){
 
 });
 
-app.post('/saveData',function(req,res){
+app.post('/saveQueData',function(req,res){
   data = req.body;
   var id = data.djID;
   var Title = data.Title;
@@ -205,6 +205,25 @@ app.post('/saveData',function(req,res){
   var userID = req.session.user.id;
   db.none('INSERT INTO QUE (title,artist,album,img,djs_id,fans_id) VALUES ($1,$2,$3,$4,$5,$6)',
   [Title,Artist,Album,Image,id,userID]).then(function(){
+    res.send("Song Added!")
   })
 
+});
+
+app.delete('/deleteQueData',function(req,res){
+  var user = req.session.user.id;
+  var songID = req.body.songID;
+  console.log(req.body.songID);
+  db.none('DELETE FROM que WHERE id = $1 AND djs_id = $2',
+[songID,user]).then(function(){
+  console.log("Song Deleted");
+});
+});
+
+app.get('/queData',function(req,res){
+  var userID = req.session.user.id;
+  db.any('SELECT * FROM que WHERE djs_id = $1', [userID])
+  .then(function(data){
+    res.send(data);
+  })
 });
