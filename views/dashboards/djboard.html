@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>{{data.first_name}} {{data.last_name}}</title>
+  <title>{{user.first_name}} {{user.last_name}}</title>
   <link rel="stylesheet" href="/css/materialize.min.css">
   <link rel="stylesheet" href="/css/djboard.css">
 </head>
@@ -12,7 +12,8 @@
     <div class="nav-wrapper black">
       <a href="/" class="brand-logo">Que<span class = "textColor" id = "djLogo">DJ</span></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a class="waves-effect waves-light btn btnColor">Login</a></li>
+        <li><a href="/dj/{{user.first_name}}-{{user.last_name}}">Profile</a></li>
+        <li><a href="/logout"class="waves-effect waves-light btn btnColor">Logout</a></li>
       </ul>
     </div>
   </nav>

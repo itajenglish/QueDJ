@@ -12,7 +12,7 @@
     <div class="nav-wrapper black">
       <a href="/" class="brand-logo">Que<span class = "textColor" id = "djLogo">DJ</span></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a class="waves-effect waves-light btn btnColor">Login</a></li>
+        <li><a href="/logout"class="waves-effect waves-light btn btnColor">Logout</a></li>
       </ul>
     </div>
   </nav>
@@ -22,7 +22,7 @@
   <div class="row">
     <div class="col card m6 s12 ">
       <div class="card-image">
-        <img src="http://localhost:3000/{{dj.image}}">
+        <img id ="img" src="http://localhost:3000/{{dj.image}}">
       </div>
       <span class="card-title">{{dj.first_name}}</span> <span class="card-title textColor">{{dj.last_name}}</span>
       <div class="card-content">

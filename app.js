@@ -52,9 +52,11 @@ app.get('/', function(req, res) {
     }
   } else {
     db.any('SELECT first_name,last_name,bio,image,location FROM djs')
-    .then(function(data){
-      res.render('home/index', {data: data});
-    })
+      .then(function(data) {
+        res.render('home/index', {
+          data: data
+        });
+      })
   }
 });
 
@@ -85,7 +87,7 @@ app.post('/register', function(req, res) {
 });
 
 //Update Info Route
-app.put('/updateInfo',function(req,res){
+app.put('/updateInfo', function(req, res) {
   function capitalFunc(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
@@ -96,11 +98,10 @@ app.put('/updateInfo',function(req,res){
   var loc = data.location;
   var bio = data.bio;
   console.log(data);
-  db.one('UPDATE djs SET (first_name,last_name,location,bio) = ($1,$2,$3,$4) WHERE id = $5 returning first_name,last_name',
-[fname,lname,loc,bio,userID]).then(function(dataReturn){
-  console.log(dataReturn)
-  res.redirect('/dj/'+ dataReturn.first_name + '-' + dataReturn.last_name);
-});
+  db.one('UPDATE djs SET (first_name,last_name,location,bio) = ($1,$2,$3,$4) WHERE id = $5 returning first_name,last_name', [fname, lname, loc, bio, userID]).then(function(dataReturn) {
+    console.log(dataReturn)
+    res.redirect('/dj/' + dataReturn.first_name + '-' + dataReturn.last_name);
+  });
 
 });
 
@@ -130,6 +131,11 @@ app.post('/login', function(req, res) {
     })
 })
 
+app.get('/logout', function(req, res) {
+  req.session.destroy();
+  res.redirect('/');
+});
+
 //Dashboard Routes
 app.get('/djboard', function(req, res) {
   var email;
@@ -138,7 +144,9 @@ app.get('/djboard', function(req, res) {
   if (user === undefined) {
     res.redirect('/');
   } else if (user.type === 'dj') {
-    res.render('dashboards/djboard');
+    res.render('dashboards/djboard', {
+      'user': user
+    });
   }
 });
 
