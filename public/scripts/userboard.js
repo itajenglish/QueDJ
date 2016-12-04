@@ -3,7 +3,7 @@ $(document).ready(function() {
     var searchBtn = $('#searchBtn');
   var getAllData = function() {
     $.ajax({
-        url: 'http://localhost:3000/search/',
+        url: 'https://quedj.herokuapp.com/search/',
         type: 'GET',
       })
       .done(function(data) {
@@ -17,7 +17,7 @@ $(document).ready(function() {
 
   var getSearchData = function(param) {
     $.ajax({
-        url: 'http://localhost:3000/api/' + param,
+        url: 'https://quedj.herokuapp.com/api/' + param,
         type: 'GET',
       })
       .done(function(data) {

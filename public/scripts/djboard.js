@@ -4,7 +4,7 @@ $(document).ready(function() {
 
     var getQue = function(){
       $.ajax({
-        url: 'http://localhost:3000/queData/',
+        url: 'https://quedj.herokuapp.com/queData/',
         type: 'GET',
       })
       .done(function(data) {
@@ -33,7 +33,7 @@ $(document).ready(function() {
 
             var songData = {'songID':songID};
             $.ajax({
-              url: 'http://localhost:3000/deleteQueData',
+              url: 'https://quedj.herokuapp.com/deleteQueData',
               type: 'DELETE',
               data: songData
             })

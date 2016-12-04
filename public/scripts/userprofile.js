@@ -4,7 +4,7 @@ $(document).ready(function() {
   var searchButton = $('#searchBtn');
   var sendData = function(){
     $.ajax({
-      url: 'http://localhost:3000/itunes',
+      url: 'https://quedj.herokuapp.com/itunes',
       type: 'POST',
       dataType: "json",
       data: song
