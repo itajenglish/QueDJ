@@ -57,7 +57,7 @@ $(document).ready(function() {
         var songData = {'djID':djID,'Title':Title,'Artist':Artist,'Album':Album,"Image":Img};
 
         $.ajax({
-          url: 'http://localhost:3000/saveQueData',
+          url: 'https://quedj.herokuapp.com/saveQueData',
           type: 'POST',
           data: songData
         })
