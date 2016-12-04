@@ -3,12 +3,13 @@ var express = require('express'),
   app = express(),
   mustache = require('mustache-express'),
   pgp = require('pg-promise')(),
-  db = pgp(process.env.DATABASE_URL || 'postgres://tajenglish@localhost:5432/quedj'),
   methodOverride = require('method-override'),
   bdPars = require('body-parser'),
   bcrypt = require('bcrypt'),
   session = require('express-session'),
   fetch = require('node-fetch');
+var db = pgp(process.env.DATABASE_URL || 'postgres://tajenglish@localhost:5432/quedj');
+
 
 
 //configure express and related packages
