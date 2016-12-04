@@ -3,13 +3,12 @@ var express = require('express'),
   app = express(),
   mustache = require('mustache-express'),
   pgp = require('pg-promise')(),
-  db = pgp(process.env.DATABASE || "postgres:tajenglish@localhost:5432/quedj"),
+  db = pgp(process.env.DATABASE_URL || "postgres:tajenglish@localhost:5432/quedj"),
   methodOverride = require('method-override'),
   bdPars = require('body-parser'),
   bcrypt = require('bcrypt'),
   session = require('express-session');
-//fetch = require("fetch")
-fetch = require('node-fetch');
+  fetch = require('node-fetch');
 
 
 //configure express and related packages
@@ -33,8 +32,8 @@ app.use(session({
 }));
 
 //start the server
-var port = 3000;
-app.listen(port, function() {
+var PORT = proecess.env.PORT || 3000;
+app.listen(PORT, function() {
   console.log('Server running on port ' + port + '!');
 });
 
