@@ -62,7 +62,7 @@ function appendDom(data) {
     var location = value.location;
     var bio = value.bio;
 
-    $('#listDjs').append('<li class="collection-item avatar"> <img src="' + image + '" alt="image" class="circle"> <span class="title">'+name+'</span> <p>' + bio+ ' <br>' +'- ' + '<span class = "textColor">'+ location + '</span>' +'</p><a href="http://localhost:3000/user/'+fname+'-'+lname+'" class="textColor secondary-content">View</a>')
+    $('#listDjs').append('<li class="collection-item avatar"> <img src="' + image + '" alt="image" class="circle"> <span class="title">'+name+'</span> <p>' + bio+ ' <br>' +'- ' + '<span class = "textColor">'+ location + '</span>' +'</p><a href="https://quedj.herokuapp.com/'+fname+'-'+lname+'" class="textColor secondary-content">View</a>')
 
   });
 }
