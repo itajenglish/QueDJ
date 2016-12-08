@@ -1,4 +1,4 @@
-# DJSocialNetwork
+# QueDJ
 ## Full Stack CRUD App
 
 ### Setup Instructions
