@@ -1,7 +1,7 @@
 # DJSocialNetwork
-# Full Stack CRUD App
+## Full Stack CRUD App
 
-# Setup Instructions
+### Setup Instructions
 - Run NPM install inside root folder
 - Create Postgress Database quedj
 - Run db/Schema.sql
