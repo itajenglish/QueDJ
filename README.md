@@ -29,9 +29,9 @@
 - Updating Profile Details
 
 # ERD
-![alt tag](https://trello.com/c/wBZGgwJW/11-database-erd)
+![alt tag](https://raw.githubusercontent.com/itajenglish/QueDJ/master/public/images/erdplus-diagram.png)
 
 # WireFrame
-![alt tag](https://trello.com/c/ri8B6ne3/10-wireframe)
+![alt tag](https://raw.githubusercontent.com/itajenglish/QueDJ/master/public/images/IMG_2924.JPG)
 
 
