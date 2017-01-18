@@ -219,7 +219,7 @@ app.get('/api', function(req, res) {
     });
 });
 
-
+app.get('/api?:name&')
 app.get('/api/:name', function(req, res) {
   var name = req.params.name
   name = name.replace('%20', ' ')
