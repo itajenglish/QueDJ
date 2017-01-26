@@ -1,9 +1,9 @@
 $(document).ready(function() {
   var searchBox = $("#autocomplete-input");
-    var searchBtn = $('#searchBtn');
+  var searchBtn = $('#searchBtn');
   var getAllData = function() {
     $.ajax({
-        url: 'https://quedj.herokuapp.com/search/',
+        url: 'http://localhost:3000/search',
         type: 'GET',
       })
       .done(function(data) {
