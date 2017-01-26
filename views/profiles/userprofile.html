@@ -12,7 +12,7 @@
     <div class="nav-wrapper black">
       <a href="/" class="brand-logo">Que<span class = "textColor" id = "djLogo">DJ</span></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a href="/logout"class="waves-effect waves-light btn btnColor">Logout</a></li>
+        <li><a href="/logout" class="waves-effect waves-light btn btnColor">Logout</a></li>
       </ul>
     </div>
   </nav>
@@ -22,17 +22,17 @@
   <div class="row">
     <div class="col card m4 s12 ">
       <div class="card-image">
-                    <img id = "img" src="https://quedj.herokuapp.com/{{dj.image}}">
-                  </div>
-                  <span class="card-title">{{dj.first_name}}</span> <span class = "card-title textColor">{{dj.last_name}}</span>
-                  <div class="card-content">
-                    <p>DJ# - <span id = "djNum" class = "textColor">{{dj.id}}</span></p>
-                    <p>Bio - <span class = "textColor">{{dj.bio}}</span></p>
-                    <p>Location - <span class = "textColor">{{dj.location}}</span></p>
-                    <p>Up Votes - {{dj.upvotes}} </p>
-                    <p>Down Votes - {{dj.downvotes}} </p>
-                  </div>
-                  <!-- <div class="card-action">
+        <img id="img" src="https://quedj.herokuapp.com/{{dj.image}}">
+      </div>
+      <span class="card-title">{{dj.first_name}}</span> <span class="card-title textColor">{{dj.last_name}}</span>
+      <div class="card-content">
+        <p>DJ# - <span id="djNum" class="textColor">{{dj.id}}</span></p>
+        <p>Bio - <span class="textColor">{{dj.bio}}</span></p>
+        <p>Location - <span class="textColor">{{dj.location}}</span></p>
+        <p>Up Votes - {{dj.upvotes}} </p>
+        <p>Down Votes - {{dj.downvotes}} </p>
+      </div>
+      <!-- <div class="card-action">
                     <a href="#">This is a link</a>
                   </div> -->
     </div>
@@ -51,13 +51,13 @@
     </div>
     <div class="col card m6 s12">
       <div class="row">
-          <ul id = "listSongs" class="collection with-header">
-            <li class="collection-header">
-              <h4 class="textColor">Songs 🎶</h4>
-            </li>
-          </ul>
+        <ul id="listSongs" class="collection with-header">
+          <li class="collection-header">
+            <h4 class="textColor">Songs 🎶</h4>
+          </li>
+        </ul>
+      </div>
     </div>
-</div>
     <div class="col card m2 s12">
       <div class="row">
         Voting
