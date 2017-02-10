@@ -15,6 +15,8 @@
 - Javascript
 - Node.Js
 - Express
+- Express-Session
+- Body-Parser
 - Bycrypt
 - Node-Fetch
 - Method-override
