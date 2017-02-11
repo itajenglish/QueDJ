@@ -1,6 +1,8 @@
 # QueDJ
 ## Full Stack CRUD App
 
+* DJ Social Network that allows you to submit songs to a que for your favorite DJ to play.
+
 ### Setup Instructions
 - Run NPM install inside root folder
 - Create Postgress Database quedj
