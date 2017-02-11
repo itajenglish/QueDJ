@@ -7,6 +7,7 @@ var express = require('express'),
   bdPars = require('body-parser'),
   bcrypt = require('bcrypt'),
   session = require('express-session'),
+  morgan = require('morgan'),
   fetch = require('node-fetch');
 var db = pgp(process.env.DATABASE_URL || 'postgres://tajenglish@localhost:5432/quedj');
 
@@ -19,6 +20,7 @@ app.set('view engine', 'html');
 app.use(express.static(__dirname + '/public'));
 app.set('views', __dirname + '/views');
 app.use(methodOverride('__method')); //method override
+app.use(morgan('dev'));
 app.use(bdPars.urlencoded({
   extended: false
 })); //body parser
