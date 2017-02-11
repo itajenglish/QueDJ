@@ -10,6 +10,7 @@ var express = require('express'),
   fetch = require('node-fetch');
 var db = pgp(process.env.DATABASE_URL || 'postgres://tajenglish@localhost:5432/quedj');
 
+const User = require('./routes/User.js');
 
 
 //configure express and related packages
@@ -106,30 +107,31 @@ app.put('/updateInfo', function(req, res) {
 });
 
 //Login Routes
-app.get('/login', function(req, res) {
-  res.render('home/login');
-});
+// app.get('/login', function(req, res) {
+//   res.render('home/login');
+// });
 
+app.use('/', User)
 
-app.post('/login', function(req, res) {
-  var data = req.body;
-  console.log(data);
-
-  db.one(
-      "(SELECT * FROM fans where email = $1) UNION (SELECT * FROM djs where email = $1)", [data.email])
-    .then(function(user) {
-      bcrypt.compare(data.password, user.password, function(err, cmp) {
-        if (cmp) {
-          req.session.user = user;
-          res.redirect('/');
-        } else {
-          res.send('Email/Password not found.');
-        }
-      });
-    }).catch(function() {
-      res.send('Email/Password not found.');
-    })
-})
+// app.post('/login', function(req, res) {
+//   var data = req.body;
+//   console.log(data);
+//
+//   db.one(
+//       "(SELECT * FROM fans where email = $1) UNION (SELECT * FROM djs where email = $1)", [data.email])
+//     .then(function(user) {
+//       bcrypt.compare(data.password, user.password, function(err, cmp) {
+//         if (cmp) {
+//           req.session.user = user;
+//           res.redirect('/');
+//         } else {
+//           res.send('Email/Password not found.');
+//         }
+//       });
+//     }).catch(function() {
+//       res.send('Email/Password not found.');
+//     })
+// })
 
 app.get('/logout', function(req, res) {
   req.session.destroy();
