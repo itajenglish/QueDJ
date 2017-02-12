@@ -1,5 +1,5 @@
 //Require NPM Packages
-var express = require('express'),
+const express = require('express'),
   app = express(),
   mustache = require('mustache-express'),
   pgp = require('pg-promise')(),
@@ -11,7 +11,8 @@ var express = require('express'),
   fetch = require('node-fetch');
 var db = pgp(process.env.DATABASE_URL || 'postgres://tajenglish@localhost:5432/quedj');
 
-const User = require('./routes/User.js');
+const USER_ROUTER = require('./controllers/Users');
+const SESSION_ROUTER = require('./controllers/Sessions')
 
 
 //configure express and related packages
@@ -20,11 +21,12 @@ app.set('view engine', 'html');
 app.use(express.static(__dirname + '/public'));
 app.set('views', __dirname + '/views');
 app.use(methodOverride('__method')); //method override
-app.use(morgan('dev'));
+app.use(morgan('dev')); // Log All Requests
 app.use(bdPars.urlencoded({
   extended: false
 })); //body parser
 app.use(bdPars.json()); //body parser
+
 
 app.use(session({
   secret: 'test',
@@ -63,31 +65,6 @@ app.get('/', function(req, res) {
   }
 });
 
-//Register Route
-app.post('/register', function(req, res) {
-  function capitalFunc(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
-  var data = req.body;
-  var fname = capitalFunc(data.first_name);
-  var lname = capitalFunc(data.last_name);
-  var image = "images/Music-Dj-icon.png"
-  if (data.accountPicker === "dj") {
-    bcrypt.hash(data.password, 10, function(err, hash) {
-      db.none("INSERT INTO djs (First_Name,Last_Name,type,email,image,location,password) VAlUES ($1,$2,$3,$4,$5,$6,$7)", [fname, lname, data.accountPicker, data.email, image, data.location, hash]).then(function(data) {
-        console.log(data);
-        res.redirect("/login");
-      });
-    });
-  } else {
-    bcrypt.hash(data.password, 10, function(err, hash) {
-      db.none("INSERT INTO fans (First_Name,Last_Name,type,email,image,location,password) VAlUES ($1,$2,$3,$4,$5,$6,$7)", [fname, lname, data.accountPicker, data.email, image, data.location, hash]).then(function(data) {
-        console.log(data);
-        res.redirect("/login");
-      });
-    });
-  }
-});
 
 //Update Info Route
 app.put('/updateInfo', function(req, res) {
@@ -108,12 +85,9 @@ app.put('/updateInfo', function(req, res) {
 
 });
 
-//Login Routes
-// app.get('/login', function(req, res) {
-//   res.render('home/login');
-// });
+app.use('/', USER_ROUTER)
+app.use('/', SESSION_ROUTER)
 
-app.use('/', User)
 
 // app.post('/login', function(req, res) {
 //   var data = req.body;
@@ -135,10 +109,6 @@ app.use('/', User)
 //     })
 // })
 
-app.get('/logout', function(req, res) {
-  req.session.destroy();
-  res.redirect('/');
-});
 
 //Dashboard Routes
 app.get('/djboard', function(req, res) {

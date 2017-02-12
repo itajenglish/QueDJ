@@ -1,18 +1,21 @@
-s;const express = require('express');
+const express = require('express');
 const router = express.Router();
-const { authenticate, register } = require('../models/User')
+const { authenticate } = require('../models/User.js');
 
+//USER#NEW
 router.get('/login', (req, res, next) => {
   res.render('home/login');
 });
 
+//USER#CREATE
 router.post('/login', authenticate, (req, res, next) => {
   res.redirect('/');
 });
 
-router.post('/register', register, (req, res, next) => {
-  res.redirect("/login");
-
+//USER#DESTORY
+router.get('/logout', (req, res) => {
+  req.session.destroy();
+  res.redirect('/');
 });
 
 module.exports = router;
