@@ -1,25 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const { authenticate, register } = require('../models/User.js');
+const { register, updateUser } = require('../models/User');
 
-//Get Routes
-router.get('/login', (req, res, next) => {
-  res.render('home/login');
+//User#Create
+router.post('/users', register, (req, res, next) => {
+  res.redirect('/login');
 });
 
-router.get('/logout', (req, res) => {
-  req.session.destroy();
-  res.redirect('/');
+//User#Put
+router.put('users/:id/', updateUser, (req, res, next) => {
+  res.redirect(`/dj/ ${user.first_name}-${user.last_name}`);
 });
-
-//Post Routes
-router.post('/login', authenticate, (req, res, next) => {
-  res.redirect('/');
-});
-
-router.post('/register', register, (req, res, next) => {
-  res.redirect('/');
-});
-
 
 module.exports = router;

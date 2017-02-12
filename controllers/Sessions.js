@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { authenticate } = require('../models/User.js');
+const { authenticate } = require('../models/User');
 
 //USER#NEW
 router.get('/login', (req, res, next) => {
