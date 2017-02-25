@@ -3,7 +3,7 @@ $(document).ready(function() {
   var searchBtn = $('#searchBtn');
   var getAllData = function() {
     $.ajax({
-        url: 'http://localhost:3000/search',
+        url: '/search',
         type: 'GET',
       })
       .done(function(data) {
@@ -17,22 +17,22 @@ $(document).ready(function() {
 
   var getSearchData = function(param) {
     $.ajax({
-        url: 'https://quedj.herokuapp.com/api/' + param,
+        url: '/api/' + param,
         type: 'GET',
       })
       .done(function(data) {
         appendDom(data);
       })
   }
-  searchBox.keyup(function(event){
+  searchBox.keyup(function(event) {
     $('.collection-item').remove();
-    if(event.keyCode == 13){
+    if (event.keyCode == 13) {
       if (searchBox.val() === "") {
 
       } else {
         var searchVal = $('.autocomplete').val();
         getSearchData(searchVal);
-    }
+      }
     }
   });
 
@@ -62,7 +62,7 @@ function appendDom(data) {
     var location = value.location;
     var bio = value.bio;
 
-    $('#listDjs').append('<li class="collection-item avatar"> <img src="' + image + '" alt="image" class="circle"> <span class="title">'+name+'</span> <p>' + bio+ ' <br>' +'- ' + '<span class = "textColor">'+ location + '</span>' +'</p><a href="https://quedj.herokuapp.com/user/'+fname+'-'+lname+'" class="textColor secondary-content">View</a>')
+    $('#listDjs').append('<li class="collection-item avatar"> <img src="' + image + '" alt="image" class="circle"> <span class="title">'+name+'</span> <p>' + bio+ ' <br>' +'- ' + '<span class = "textColor">'+ location + '</span>' +'</p><a href="/user/'+fname+'-'+lname+'" class="textColor secondary-content">View</a>')
 
   });
 }
