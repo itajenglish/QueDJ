@@ -38,6 +38,11 @@ app.use(session({
   }
 }));
 
+app.all('/', (req, res, next) =>{
+  console.log('helloWorld');
+  next();
+})
+
 //start the server
 var PORT = process.env.PORT || 3000;
 app.listen(PORT, function() {
@@ -46,28 +51,8 @@ app.listen(PORT, function() {
 
 
 app.use('/', HOME_ROUTER);
-
-// Define Routes
-//Home Route
-// app.get('/', function(req, res) {
-//   var user = req.session.user;
-//
-//   if (user) {
-//     if (user.type === "fan") {
-//       console.log(user.type);
-//       res.redirect('/userboard');
-//     } else if (user.type === "dj") {
-//       res.redirect("/djboard");
-//     }
-//   } else {
-//     db.any('SELECT first_name,last_name,bio,image,location FROM djs')
-//       .then(function(data) {
-//         res.render('home/index', {
-//           data: data
-//         });
-//       })
-//   }
-// });
+app.use('/', USER_ROUTER);
+app.use('/', SESSION_ROUTER);
 
 
 //Update Info Route
@@ -89,8 +74,6 @@ app.put('/updateInfo', function(req, res) {
 
 });
 
-app.use('/', USER_ROUTER)
-app.use('/', SESSION_ROUTER)
 
 
 //Dashboard Routes
