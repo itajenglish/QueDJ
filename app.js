@@ -12,7 +12,8 @@ const express = require('express'),
 var db = pgp(process.env.DATABASE_URL || 'postgres://tajenglish@localhost:5432/quedj');
 
 const USER_ROUTER = require('./controllers/Users');
-const SESSION_ROUTER = require('./controllers/Sessions')
+const SESSION_ROUTER = require('./controllers/Sessions');
+const HOME_ROUTER = require('./controllers/Home');
 
 
 //configure express and related packages
@@ -43,27 +44,30 @@ app.listen(PORT, function() {
   console.log('Server running on port ' + PORT + '!');
 });
 
+
+app.use('/', HOME_ROUTER);
+
 // Define Routes
 //Home Route
-app.get('/', function(req, res) {
-  var user = req.session.user;
-
-  if (user) {
-    if (user.type === "fan") {
-      console.log(user.type);
-      res.redirect('/userboard');
-    } else if (user.type === "dj") {
-      res.redirect("/djboard");
-    }
-  } else {
-    db.any('SELECT first_name,last_name,bio,image,location FROM djs')
-      .then(function(data) {
-        res.render('home/index', {
-          data: data
-        });
-      })
-  }
-});
+// app.get('/', function(req, res) {
+//   var user = req.session.user;
+//
+//   if (user) {
+//     if (user.type === "fan") {
+//       console.log(user.type);
+//       res.redirect('/userboard');
+//     } else if (user.type === "dj") {
+//       res.redirect("/djboard");
+//     }
+//   } else {
+//     db.any('SELECT first_name,last_name,bio,image,location FROM djs')
+//       .then(function(data) {
+//         res.render('home/index', {
+//           data: data
+//         });
+//       })
+//   }
+// });
 
 
 //Update Info Route
@@ -87,27 +91,6 @@ app.put('/updateInfo', function(req, res) {
 
 app.use('/', USER_ROUTER)
 app.use('/', SESSION_ROUTER)
-
-
-// app.post('/login', function(req, res) {
-//   var data = req.body;
-//   console.log(data);
-//
-//   db.one(
-//       "(SELECT * FROM fans where email = $1) UNION (SELECT * FROM djs where email = $1)", [data.email])
-//     .then(function(user) {
-//       bcrypt.compare(data.password, user.password, function(err, cmp) {
-//         if (cmp) {
-//           req.session.user = user;
-//           res.redirect('/');
-//         } else {
-//           res.send('Email/Password not found.');
-//         }
-//       });
-//     }).catch(function() {
-//       res.send('Email/Password not found.');
-//     })
-// })
 
 
 //Dashboard Routes
