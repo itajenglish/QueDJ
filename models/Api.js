@@ -17,4 +17,25 @@ const getUserByFnameOrLname = (req, res, next) => {
   })
 }
 
-module.exports = { getUserByFnameOrLname };
+const getAllSearchUsers = (req, res, next) => {
+  db.any('SELECT id,first_name,last_name,image,location FROM djs')
+    .then((users) => {
+      let obj = {};
+
+      //Auto Complete Requires names to be keys.
+       users.forEach(function(value, index, arry) {
+        const fname = value.first_name;
+        const lname = value.last_name;
+        obj[fname + " " + lname] = null;
+      });
+
+      req.user = obj;
+      next();
+    })
+    .catch((err) => {
+      console.log(err)
+      res.send('Ohh oh something went wrong!')
+    })
+}
+
+module.exports = { getUserByFnameOrLname, getAllSearchUsers };

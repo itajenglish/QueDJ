@@ -1,21 +1,20 @@
-$(document).ready(function() {
-  var searchBox = $("#autocomplete-input");
-  var searchBtn = $('#searchBtn');
-  var getAllData = function() {
+$(document).ready(() => {
+  let searchBox = $("#autocomplete-input");
+  let searchBtn = $('#searchBtn');
+
+  const getAllData = () => {
     $.ajax({
-        url: '/search',
+        url: '/api/search',
         type: 'GET',
       })
-      .done(function(data) {
+      .done((data) => {
         //Prefil search box with data from database.
-        $('input.autocomplete').autocomplete({
-          data
-        });
+        $('input.autocomplete').autocomplete({data});
       });
   }
-  getAllData()
+  getAllData();
 
-  var getSearchData = function(fname, lname) {
+  const getSearchData = (fname, lname) => {
     $.ajax({
         url: `/api/${fname}-${lname}`,
         type: 'GET',
@@ -25,7 +24,7 @@ $(document).ready(function() {
       })
   }
 
-  searchBox.keyup(function(event) {
+  searchBox.keyup((event) => {
     $('.collection-item').remove();
     if (event.keyCode == 13) {
       if (searchBox.val() === "") {
@@ -44,7 +43,7 @@ $(document).ready(function() {
     }
   });
 
- searchBtn.click(function(event) {
+ searchBtn.click((event) => {
    $('.collection-item').remove();
     let searchVal = $('.autocomplete').val();
     if (searchVal === "") {
@@ -62,18 +61,18 @@ $(document).ready(function() {
 
 });
 
-function appendDom(data) {
+const appendDom = (data) => {
   $('.collection-item').remove();
   console.log(data);
-  data.forEach(function(value, index, element) {
-    var name = value.first_name + " " + value.last_name;
-    var fname = value.first_name;
-    var lname = value.last_name;
-    var image = value.image;
-    var upvotes;
-    var downvotes;
-    var location = value.location;
-    var bio = value.bio;
+  data.forEach((value, index, element) => {
+    let name = value.first_name + " " + value.last_name;
+    let fname = value.first_name;
+    let lname = value.last_name;
+    let image = value.image;
+    let upvotes;
+    let downvotes;
+    let location = value.location;
+    let bio = value.bio;
 
     $('#listDjs').append('<li class="collection-item avatar"> <img src="' + image + '" alt="image" class="circle"> <span class="title">'+name+'</span> <p>' + bio+ ' <br>' +'- ' + '<span class = "textColor">'+ location + '</span>' +'</p><a href="/user/'+fname+'-'+lname+'" class="textColor secondary-content">View</a>')
 
