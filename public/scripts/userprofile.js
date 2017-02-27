@@ -1,7 +1,7 @@
 $(document).ready(function() {
   let song;
-  var searchBox = $(".musicSearch");
-  var searchButton = $('#searchBtn');
+  let searchBox = $(".musicSearch");
+  let searchButton = $('#searchBtn');
 
   //Gets songs from itunes matching song name passed in
   const sendData = () => {
@@ -53,7 +53,7 @@ $(document).ready(function() {
 
       appendDom(Title,Artist,Img,Album,Counter);
 
-      $('#song-num'+Counter).on('click', () => {
+      $('#song-num' + Counter).on('click', () => {
         const djID = $('#djNum').text();
         const songData = {
           'djID': djID,
