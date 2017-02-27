@@ -7,6 +7,7 @@ router.get('/:fname-:lname', getUserByName,(req, res, next) => {
   const accountType = req.session.user.type
   const user = req.user;
 
+  //Renders the correct profile based on account type.
   if (accountType === 'dj'){
     res.render('profiles/djprofile', {user});
   } else {

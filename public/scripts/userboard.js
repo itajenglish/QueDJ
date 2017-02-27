@@ -15,35 +15,48 @@ $(document).ready(function() {
   }
   getAllData()
 
-  var getSearchData = function(param) {
+  var getSearchData = function(fname, lname) {
     $.ajax({
-        url: '/api/' + param,
+        url: `/api/${fname}-${lname}`,
         type: 'GET',
       })
-      .done(function(data) {
-        appendDom(data);
+      .done((response) => {
+        appendDom(response);
       })
   }
+
   searchBox.keyup(function(event) {
     $('.collection-item').remove();
     if (event.keyCode == 13) {
       if (searchBox.val() === "") {
-
+        return
       } else {
-        var searchVal = $('.autocomplete').val();
-        getSearchData(searchVal);
+
+        let searchVal = $('.autocomplete').val();
+        searchVal = searchVal.replace('%20', ' ');
+        searchVal = searchVal.split(' ');
+
+        const fname = searchVal[0];
+        const lname = searchVal[1];
+
+        getSearchData(fname, lname);
       }
     }
   });
 
  searchBtn.click(function(event) {
    $('.collection-item').remove();
-    var searchVal = $('.autocomplete').val();
+    let searchVal = $('.autocomplete').val();
     if (searchVal === "") {
-
+      return
     } else {
-      getSearchData(searchVal);
+      searchVal = searchVal.replace('%20', ' ');
+      searchVal = searchVal.split(' ');
 
+      const fname = searchVal[0];
+      const lname = searchVal[1];
+
+      getSearchData(fname, lname);
     }
   });
 

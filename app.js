@@ -7,13 +7,14 @@ const express = require('express'),
   bdPars = require('body-parser'),
   bcrypt = require('bcrypt'),
   session = require('express-session'),
-  morgan = require('morgan'),
-  fetch = require('node-fetch');
+  morgan = require('morgan');
 var db = pgp(process.env.DATABASE_URL || 'postgres://tajenglish@localhost:5432/quedj');
 
+//Controllers
 const USER_ROUTER = require('./controllers/Users');
 const SESSION_ROUTER = require('./controllers/Sessions');
 const HOME_ROUTER = require('./controllers/Home');
+const API_ROUTER = require('./controllers/API');
 
 const checkSession = require('./lib/helpers/checkSession');
 
@@ -49,8 +50,9 @@ app.listen(PORT, function() {
 
 
 app.use('/', HOME_ROUTER);
-app.use('/Users', USER_ROUTER);
 app.use('/', SESSION_ROUTER);
+app.use('/Users', USER_ROUTER);
+app.use('/Api', API_ROUTER);
 
 
 //Update Info Route
@@ -104,45 +106,18 @@ app.get('/userboard', function(req, res) {
   }
 });
 
-//Profile Routes
-app.get('/user/:fname-:lname', function(req, res) {
-  function capitalFunc(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
-  var fname = capitalFunc(req.params.fname);
-  var lname = capitalFunc(req.params.lname)
-  db.one('SELECT * FROM djs WHERE first_name = $1 AND last_name = $2', [fname, lname])
-    .then(function(data) {
-      delete data.password
-      console.log(data);
-      var dbData = {
-        dj: data
-      };
-      res.render('profiles/userprofile', dbData);
-    });
-});
 
 
-//Api Routes
-
-app.get('/api', function(req, res) {
-  db.any('SELECT id,first_name,last_name,image,location FROM djs')
-    .then(function(data) {
-      var data = JSON.stringify(data);
-      res.send(data);
-    });
-});
-
-app.get('/api/:name', function(req, res) {
-  var name = req.params.name
-  name = name.replace('%20', ' ')
-  name = name.split(' ')
-  db.any('SELECT id,first_name,last_name,image,location,bio FROM djs WHERE first_name = $1 OR last_name = $2', [name[0], name[1]])
-    .then(function(data) {
-      console.log(data)
-      res.send(data);
-    });
-})
+// app.get('/api/:name', function(req, res) {
+//   var name = req.params.name
+//   name = name.replace('%20', ' ')
+//   name = name.split(' ')
+//   db.any('SELECT id,first_name,last_name,image,location,bio FROM djs WHERE first_name = $1 OR last_name = $2', [name[0], name[1]])
+//     .then(function(data) {
+//       console.log(data)
+//       res.send(data);
+//     });
+// })
 
 app.get('/search', function(req, res) {
   db.any('SELECT id,first_name,last_name,image,location FROM djs')
@@ -159,16 +134,7 @@ app.get('/search', function(req, res) {
     });
 });
 
-app.post('/itunes', function(req, res) {
-  var body = req.body;
-  fetch("https://itunes.apple.com/search?term=" + body.title)
-    .then(function(res2) {
-      return res2.json();
-    }).then(function(json) {
-      res.json(json);
-    })
 
-});
 
 app.post('/saveQueData', function(req, res) {
   data = req.body;

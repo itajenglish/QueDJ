@@ -34,6 +34,7 @@ const register = (req, res, next) => {
   const lname = capitalName(data.last_name);
   const image = "images/Music-Dj-icon.png"
 
+  //Based on account type user selects puts it into the right table
   if (data.accountPicker === "dj") {
 
     bcrypt.hash(data.password, 10, (err, hash) => {
@@ -44,7 +45,7 @@ const register = (req, res, next) => {
       })
       .catch((err) => {
         res.send('Something went wrong!')
-        console.log(err)
+        console.log(err);
       })
     });
 
@@ -57,11 +58,25 @@ const register = (req, res, next) => {
         next();
       })
       .catch((err) => {
-        res.send('Something went wrong!')
-        console.log(err)
+        res.send('Something went wrong!');
+        console.log(err);
       })
     });
   }
+}
+
+//Gets all users in the daabase
+const getAllUsers = (req, res , next) => {
+
+  db.any('SELECT id,first_name,last_name,image,location FROM djs')
+  .then((users) => {
+    req.user = users;
+    next();
+  })
+  .catch((err) => {
+    console.log(err);
+    res.send('Ohh oh something went wrong!');
+  })
 }
 
 //Get Specfic User by first and last name
@@ -75,9 +90,10 @@ const getUserByName = (req, res, next) => {
     req.user = data;
     next();
   })
-    .catch((err) => {
+  .catch((err) => {
+      res.send('Something went wrong!');
       console.log(err);
-      next()
+      next();
     })
 }
 
@@ -99,8 +115,8 @@ const updateUser = (req, res, next) => {
       next();
     })
     .catch((err) => {
-      res.send('Something went wrong!')
-      console.log(err)
+      res.send('Something went wrong!');
+      console.log(err);
     })
 }
 
@@ -108,5 +124,6 @@ module.exports = {
   authenticate,
   register,
   getUserByName,
+  getAllUsers,
   updateUser
 };
