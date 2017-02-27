@@ -3,14 +3,14 @@
 
 <head>
   <meta charset="utf-8">
-  <title>{{dj.first_name}} {{dj.last_name}}</title>
+  <title>{{user.first_name}} {{user.last_name}}</title>
   <link rel="stylesheet" href="../css/materialize.min.css">
-  <link rel="stylesheet" href="../css/djprofile.css">
+  <link rel="stylesheet" href="../css/userprofile.css">
 </head>
 <header>
   <nav>
     <div class="nav-wrapper black">
-      <a href="/" class="brand-logo">Que<span class = "textColor" id = "djLogo">DJ</span></a>
+      <a href="/" class="brand-logo">Que<span class = "textColor" id = "userLogo">DJ</span></a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a href="/logout"class="waves-effect waves-light btn btnColor">Logout</a></li>
       </ul>
@@ -22,15 +22,15 @@
   <div class="row">
     <div class="col card m6 s12 ">
       <div class="card-image">
-        <img id ="img" src="https://quedj.herokuapp.com/{{dj.image}}">
+        <img id ="img" src="/{{user.image}}">
       </div>
-      <span class="card-title">{{dj.first_name}}</span> <span class="card-title textColor">{{dj.last_name}}</span>
+      <span class="card-title">{{user.first_name}}</span> <span class="card-title textColor">{{user.last_name}}</span>
       <div class="card-content">
-        <p>DJ# - <span id="djNum" class="textColor">{{dj.id}}</span></p>
-        <p>Bio - <span class="textColor">{{dj.bio}}</span></p>
-        <p>Location - <span class="textColor">{{dj.location}}</span></p>
-        <p>Up Votes - {{dj.upvotes}} </p>
-        <p>Down Votes - {{dj.downvotes}} </p>
+        <p>DJ# - <span id="userNum" class="textColor">{{user.id}}</span></p>
+        <p>Bio - <span class="textColor">{{user.bio}}</span></p>
+        <p>Location - <span class="textColor">{{user.location}}</span></p>
+        <p>Up Votes - {{user.upvotes}} </p>
+        <p>Down Votes - {{user.downvotes}} </p>
       </div>
     </div>
 

@@ -1,15 +1,31 @@
 const express = require('express');
 const router = express.Router();
-const { register, updateUser } = require('../models/User');
+const { register, getUserByName, updateUser } = require('../models/User');
+
+//User#Get
+router.get('/:fname-:lname', getUserByName,(req, res, next) => {
+  const accountType = req.session.user.type
+  const user = req.user;
+
+  if (accountType === 'dj'){
+    res.render('profiles/djprofile', {user});
+  } else {
+    res.render('profiles/userprofile', {user})
+  }
+
+});
 
 //User#Create
-router.post('/users', register, (req, res, next) => {
+router.post('/', register, (req, res, next) => {
   res.redirect('/login');
 });
 
 //User#Put
-router.put('users/:id/', updateUser, (req, res, next) => {
+router.put('/:id', updateUser, (req, res, next) => {
   res.redirect(`/dj/ ${user.first_name}-${user.last_name}`);
 });
+
+
+
 
 module.exports = router;

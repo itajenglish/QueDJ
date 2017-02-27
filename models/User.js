@@ -64,6 +64,23 @@ const register = (req, res, next) => {
   }
 }
 
+//Get Specfic User by first and last name
+const getUserByName = (req, res, next) => {
+  const fname = capitalName(req.params.fname);
+  const lname = capitalName(req.params.lname);
+
+  db.one('SELECT * FROM djs WHERE first_name = $1 AND last_name = $2', [fname, lname])
+  .then((data) => {
+    delete data.password
+    req.user = data;
+    next();
+  })
+    .catch((err) => {
+      console.log(err);
+      next()
+    })
+}
+
 //Updates User in the database
 const updateUser = (req, res, next) => {
 
@@ -90,5 +107,6 @@ const updateUser = (req, res, next) => {
 module.exports = {
   authenticate,
   register,
+  getUserByName,
   updateUser
 };

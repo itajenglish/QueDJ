@@ -15,7 +15,7 @@ const USER_ROUTER = require('./controllers/Users');
 const SESSION_ROUTER = require('./controllers/Sessions');
 const HOME_ROUTER = require('./controllers/Home');
 
-// const checkSession = require('./lib/helpers/checkSession');
+const checkSession = require('./lib/helpers/checkSession');
 
 //configure express and related packages
 app.engine('html', mustache());
@@ -39,7 +39,7 @@ app.use(session({
   }
 }));
 
-// app.all(['/'], checkSession)
+app.all(['/users/*'], checkSession)
 
 //start the server
 var PORT = process.env.PORT || 3000;
@@ -49,7 +49,7 @@ app.listen(PORT, function() {
 
 
 app.use('/', HOME_ROUTER);
-app.use('/', USER_ROUTER);
+app.use('/Users', USER_ROUTER);
 app.use('/', SESSION_ROUTER);
 
 
@@ -122,31 +122,6 @@ app.get('/user/:fname-:lname', function(req, res) {
     });
 });
 
-app.get('/dj/:fname-:lname', function(req, res) {
-  var user = req.session.user;
-  if (user === undefined) {
-    res.redirect('/login');
-
-  } else if (user.type === 'dj') {
-    var capitalFunc = function(string) {
-      return string.charAt(0).toUpperCase() + string.slice(1);
-    }
-    var fname = capitalFunc(req.params.fname);
-    var lname = capitalFunc(req.params.lname);
-
-
-    db.one('SELECT * FROM djs WHERE first_name = $1 AND last_name = $2', [fname, lname])
-      .then(function(data) {
-        console.log(data);
-        var dbData = {
-          dj: data
-        };
-        res.render('profiles/djprofile', dbData);
-      });
-  } else if (user.type === 'fan') {
-    res.redirect('/userboard');
-  }
-});
 
 //Api Routes
 
@@ -158,7 +133,6 @@ app.get('/api', function(req, res) {
     });
 });
 
-app.get('/api?:name&')
 app.get('/api/:name', function(req, res) {
   var name = req.params.name
   name = name.replace('%20', ' ')
