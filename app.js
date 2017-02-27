@@ -38,7 +38,7 @@ app.use(session({
   }
 }));
 
-app.all('/', (req, res, next) =>{
+app.all('/', (req, res, next) => {
   console.log('helloWorld');
   next();
 })
@@ -115,6 +115,7 @@ app.get('/user/:fname-:lname', function(req, res) {
   var lname = capitalFunc(req.params.lname)
   db.one('SELECT * FROM djs WHERE first_name = $1 AND last_name = $2', [fname, lname])
     .then(function(data) {
+      delete data.password
       console.log(data);
       var dbData = {
         dj: data

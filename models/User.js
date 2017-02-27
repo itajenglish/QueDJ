@@ -8,8 +8,7 @@ const authenticate = (req, res, next) => {
 
   const data = req.body;
 
-  db.one(
-      "(SELECT * FROM fans where email = $1) UNION (SELECT * FROM djs where email = $1)", [data.email])
+  db.one("(SELECT * FROM fans where email = $1) UNION (SELECT * FROM djs where email = $1)", [data.email])
     .then((user) => {
 
       bcrypt.compare(data.password, user.password, (err, cmp) => {
@@ -21,7 +20,8 @@ const authenticate = (req, res, next) => {
           res.send('Email/Password not found.');
         }
       });
-    }).catch(() => {
+    })
+    .catch(() => {
       res.send('Email/Password not found.');
     })
 };
@@ -37,10 +37,15 @@ const register = (req, res, next) => {
   if (data.accountPicker === "dj") {
 
     bcrypt.hash(data.password, 10, (err, hash) => {
-      db.none("INSERT INTO djs (First_Name,Last_Name,type,email,image,location,password) VAlUES ($1,$2,$3,$4,$5,$6,$7)", [fname, lname, data.accountPicker, data.email, image, data.location, hash]).then(function(data) {
+      db.none("INSERT INTO djs (First_Name,Last_Name,type,email,image,location,password) VAlUES ($1,$2,$3,$4,$5,$6,$7)", [fname, lname, data.accountPicker, data.email, image, data.location, hash])
+      .then((data) => {
         console.log(data);
         next();
-      });
+      })
+      .catch((err) => {
+        res.send('Something went wrong!')
+        console.log(err)
+      })
     });
 
   } else {
@@ -50,7 +55,11 @@ const register = (req, res, next) => {
       .then((data) => {
         console.log(data);
         next();
-      });
+      })
+      .catch((err) => {
+        res.send('Something went wrong!')
+        console.log(err)
+      })
     });
   }
 }
@@ -71,9 +80,13 @@ const updateUser = (req, res, next) => {
     .then((user) => {
       console.log(user)
       next();
-    });
-
+    })
+    .catch((err) => {
+      res.send('Something went wrong!')
+      console.log(err)
+    })
 }
+
 module.exports = {
   authenticate,
   register,

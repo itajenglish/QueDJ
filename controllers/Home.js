@@ -15,7 +15,7 @@ router.get('/', getAllDjs, (req, res, next) => {
     }
   } else {
     const djs = req.user;
-    res.render('home/index', {djs});
+    res.render('home/index', { djs });
   }
 });
 
