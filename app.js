@@ -15,6 +15,7 @@ const USER_ROUTER = require('./controllers/Users');
 const SESSION_ROUTER = require('./controllers/Sessions');
 const HOME_ROUTER = require('./controllers/Home');
 
+// const checkSession = require('./lib/helpers/checkSession');
 
 //configure express and related packages
 app.engine('html', mustache());
@@ -38,10 +39,7 @@ app.use(session({
   }
 }));
 
-app.all('/', (req, res, next) => {
-  console.log('helloWorld');
-  next();
-})
+// app.all(['/'], checkSession)
 
 //start the server
 var PORT = process.env.PORT || 3000;
