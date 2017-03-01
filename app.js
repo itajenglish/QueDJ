@@ -58,25 +58,6 @@ app.use('/Users', USERS_ROUTER);
 app.use('/Api', API_ROUTER);
 
 
-//Update Info Route
-app.put('/updateInfo', function(req, res) {
-  function capitalFunc(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
-  var data = req.body;
-  var userID = req.session.user.id;
-  var fname = capitalFunc(data.first_name);
-  var lname = capitalFunc(data.last_name);
-  var loc = data.location;
-  var bio = data.bio;
-  console.log(data);
-  db.one('UPDATE djs SET (first_name,last_name,location,bio) = ($1,$2,$3,$4) WHERE id = $5 returning first_name,last_name', [fname, lname, loc, bio, userID]).then(function(dataReturn) {
-    console.log(dataReturn)
-    res.redirect('/dj/' + dataReturn.first_name + '-' + dataReturn.last_name);
-  });
-
-});
-
 app.post('/saveQueData', function(req, res) {
   data = req.body;
   var id = data.djID;

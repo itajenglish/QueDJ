@@ -109,8 +109,10 @@ const updateUser = (req, res, next) => {
 
   console.log(data);
 
-  db.one('UPDATE djs SET (first_name,last_name,location,bio) = ($1,$2,$3,$4) WHERE id = $5 returning first_name,last_name', [fname, lname, loc, bio, userID])
+  db.one('UPDATE djs SET (first_name,last_name,location,bio) = ($1,$2,$3,$4) WHERE id = $5 returning id,first_name,last_name,type', [fname, lname, loc, bio, userID])
     .then((user) => {
+      req.user = user;
+      req.session.user = user;
       console.log(user)
       next();
     })
