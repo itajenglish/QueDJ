@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(() => {
   let song;
   let searchBox = $(".musicSearch");
   let searchButton = $('#searchBtn');
