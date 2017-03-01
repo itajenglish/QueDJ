@@ -11,9 +11,10 @@ const express = require('express'),
 var db = pgp(process.env.DATABASE_URL || 'postgres://tajenglish@localhost:5432/quedj');
 
 //Controllers
-const USER_ROUTER = require('./controllers/Users');
-const SESSION_ROUTER = require('./controllers/Sessions');
+const USERS_ROUTER = require('./controllers/Users');
+const SESSIONS_ROUTER = require('./controllers/Sessions');
 const HOME_ROUTER = require('./controllers/Home');
+const DASHBOARDS_ROUTER = require('./controllers/Dashboards');
 const API_ROUTER = require('./controllers/API');
 
 const checkSession = require('./lib/helpers/checkSession');
@@ -40,7 +41,8 @@ app.use(session({
   }
 }));
 
-app.all(['/users/*'], checkSession)
+//Redirects any user that is not logged in when visiting /users
+app.all(['/users*'], checkSession)
 
 //start the server
 var PORT = process.env.PORT || 3000;
@@ -50,8 +52,9 @@ app.listen(PORT, function() {
 
 
 app.use('/', HOME_ROUTER);
-app.use('/', SESSION_ROUTER);
-app.use('/Users', USER_ROUTER);
+app.use('/', SESSIONS_ROUTER);
+app.use('/', DASHBOARDS_ROUTER);
+app.use('/Users', USERS_ROUTER);
 app.use('/Api', API_ROUTER);
 
 
@@ -73,68 +76,6 @@ app.put('/updateInfo', function(req, res) {
   });
 
 });
-
-
-
-//Dashboard Routes
-app.get('/djboard', function(req, res) {
-  var email;
-  var user = req.session.user;
-
-  if (user === undefined) {
-    res.redirect('/');
-  } else if (user.type === 'dj') {
-    res.render('dashboards/djboard', {
-      'user': user
-    });
-  }
-});
-
-app.get('/userboard', function(req, res) {
-  var email;
-  var user = req.session.user;
-  var data = {
-    data: user
-  };
-
-  if (user === undefined) {
-    res.redirect('/');
-  } else if (user.type === 'fan') {
-    res.render('dashboards/userboard', data);
-  } else {
-    res.send('neither clause met');
-  }
-});
-
-
-
-// app.get('/api/:name', function(req, res) {
-//   var name = req.params.name
-//   name = name.replace('%20', ' ')
-//   name = name.split(' ')
-//   db.any('SELECT id,first_name,last_name,image,location,bio FROM djs WHERE first_name = $1 OR last_name = $2', [name[0], name[1]])
-//     .then(function(data) {
-//       console.log(data)
-//       res.send(data);
-//     });
-// })
-
-app.get('/search', function(req, res) {
-  db.any('SELECT id,first_name,last_name,image,location FROM djs')
-    .then(function(data) {
-      var obj = {};
-      var data2 = data.forEach(function(value, index, arry) {
-        var fname = value.first_name;
-        var lname = value.last_name;
-        var loc = value.location
-        obj[fname + " " + lname] = null;
-        // obj[location] = loc;
-      })
-      res.send(obj);
-    });
-});
-
-
 
 app.post('/saveQueData', function(req, res) {
   data = req.body;
