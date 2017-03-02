@@ -4,7 +4,7 @@ $(document).ready(function() {
 
   var getQue = function() {
     $.ajax({
-        url: 'https://quedj.herokuapp.com/queData/',
+        url: '/queue',
         type: 'GET',
       })
       .done(function(data) {

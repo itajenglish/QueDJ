@@ -15,6 +15,7 @@ const USERS_ROUTER = require('./controllers/Users');
 const SESSIONS_ROUTER = require('./controllers/Sessions');
 const HOME_ROUTER = require('./controllers/Home');
 const DASHBOARDS_ROUTER = require('./controllers/Dashboards');
+const QUEUE_ROUTER = require('./controllers/Queue');
 const API_ROUTER = require('./controllers/API');
 
 const checkSession = require('./lib/helpers/checkSession');
@@ -54,6 +55,7 @@ app.listen(PORT, function() {
 app.use('/', HOME_ROUTER);
 app.use('/', SESSIONS_ROUTER);
 app.use('/', DASHBOARDS_ROUTER);
+app.use('/Queue', QUEUE_ROUTER);
 app.use('/Users', USERS_ROUTER);
 app.use('/Api', API_ROUTER);
 
