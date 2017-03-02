@@ -24,6 +24,7 @@ $(document).ready(() => {
       })
   }
 
+  //When enter key is pressed.
   searchBox.keyup((event) => {
     $('.collection-item').remove();
     if (event.keyCode == 13) {

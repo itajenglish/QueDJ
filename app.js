@@ -52,11 +52,11 @@ app.listen(PORT, function() {
 });
 
 
-app.use('/', HOME_ROUTER);
-app.use('/', SESSIONS_ROUTER);
-app.use('/', DASHBOARDS_ROUTER);
-app.use('/Queue', QUEUE_ROUTER);
+app.use(HOME_ROUTER);
+app.use(SESSIONS_ROUTER);
+app.use(DASHBOARDS_ROUTER);
 app.use('/Users', USERS_ROUTER);
+app.use('/Queue', QUEUE_ROUTER);
 app.use('/Api', API_ROUTER);
 
 
@@ -68,9 +68,9 @@ app.use('/Api', API_ROUTER);
 //   var Album = data.Album;
 //   var Image = data.Image;
 //   var userID = req.session.user.id;
-//   db.none('INSERT INTO QUE (title,artist,album,img,djs_id,fans_id) VALUES ($1,$2,$3,$4,$5,$6)', [Title, Artist, Album, Image, id, userID]).then(function() {
-//     res.send("Song Added!")
-//   })
+  // db.none('INSERT INTO QUE (title,artist,album,img,djs_id,fans_id) VALUES ($1,$2,$3,$4,$5,$6)', [Title, Artist, Album, Image, id, userID]).then(function() {
+  //   res.send("Song Added!")
+  // })
 //
 // });
 //
