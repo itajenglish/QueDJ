@@ -13,7 +13,7 @@ router.post('/', addToQueue, (req, res, next) => {
 });
 
 router.delete('/', deleteSongFromQue, (req, res, next) => {
-res.send('Song Delete1')
+res.send('Song Delete')
 
 });
 

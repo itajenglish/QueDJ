@@ -1,13 +1,11 @@
-$(document).ready(function() {
-  var searchBox = $("#autocomplete-input");
-  var searchBtn = $('#searchBtn');
+$(document).ready(() => {
 
-  var getQue = function() {
+  const getQue = () => {
     $.ajax({
         url: '/queue',
         type: 'GET',
       })
-      .done(function(data) {
+      .done((data) => {
         console.log(data)
         parseData(data);
       });
@@ -15,38 +13,43 @@ $(document).ready(function() {
   getQue();
 
 
-  var parseData = function(data) {
-    data.forEach(function(value, index, element) {
-      var Counter = index;
-      var title = value.title;
-      var artist = value.artist;
-      var album = value.album;
-      var img = value.img;
-      var songID = value.id;
+  const parseData = (data) => {
+    data.forEach((value, index, element) => {
+      const Counter = index;
+      const title = value.title;
+      const artist = value.artist;
+      const album = value.album;
+      const img = value.img;
+      const songID = value.id;
 
       appendDom(title, artist, img, album, Counter);
 
-      $('#song-num' + Counter).on('click', function() {
-        $('#song-num' + Counter).hide('slow/400/fast', function() {
+      $('#song-num' + Counter).on('click', () => {
+        $('#song-num' + Counter).hide('slow/400/fast', () => {
           location.reload();
         });
 
-        var songData = {
-          'songID': songID
-        };
         $.ajax({
-          url: 'https://quedj.herokuapp.com/deleteQueData',
+          url: '/queue',
           type: 'DELETE',
-          data: songData
+          data: {'songID': songID}
         })
       })
     });
 
   }
 
-  var appendDom = function(title, artist, img, album, Counter) {
+  const appendDom = (title, artist, img, album, Counter) => {
+    const html = '<li class="collection-item avatar">'+
+              `<img src="${img}" alt="image" class="circle">`+
+              `<span class="title">${title}</span>`+
+              `<p>${album} <br> - <span class = "textColor">${artist}</span> </p>`+
+              `<div class = "row">`+
+              `<button id = "song-num${Counter}" class="deleteQue waves-effect waves-light btn btnColor">Delete From Que</button></div>`+
+              `</li>`;
 
-    $('#listQue').append('<li class="collection-item avatar"> <img src="' + img + '" alt="image" class="circle"> <span class="title">' + title + '</span> <p>' + album + ' <br>' + '- ' + '<span class = "textColor">' + artist + '</span>' + '<div class = "row">' + '<button id = "song-num' + Counter + '"" class = "deleteQue waves-effect waves-light btn btnColor">Delete From Que</button>' + '</div>');
+              $('#listQue').append(html)
+
   }
 
 });

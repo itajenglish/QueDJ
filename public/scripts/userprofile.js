@@ -72,16 +72,27 @@ $(document).ready(() => {
           data: songData
         })
         .done(() => {
+          $('#song-num'+ Counter).hide()
           console.log("success");
         })
-
       })
     });
 
   }
 
   const appendDom = (Title,Artist,Img,Album,Counter) => {
-    $('#listSongs').append('<li class="collection-item avatar"> <img src="' + Img + '" alt="image" data = "{{dj.id}}" class="circle"> <span class="title">'+Title+'</span> <p>' + Artist+'</p>'+'<p>'+Album+'</p>'+'<div class = "row">'+ '<button id = "song-num'+Counter+'"" class = "addQue waves-effect waves-light btn btnColor">Que</button>' +'</div>'+'</li>')
+    const html = `<li class="collection-item avatar">`+
+                  `<img src="${Img}" alt="image" data="{{dj.id}}" class="circle">`+
+                  `<span class="title">${Title}</span>`+
+                  `<p>${Artist}</p>`+
+                  `<p>${Album}</p>`+
+                  `<div class="row">`+
+                  `<button id="song-num${Counter}" class="addQue waves-effect waves-light btn btnColor">Que</button>`+
+                  `</div>`+
+                  `</li>`
+
+
+    $('#listSongs').append(html);
   };
 
 

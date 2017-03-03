@@ -45,7 +45,6 @@ const deleteSongFromQue = (req, res, next) => {
 
   db.none('DELETE FROM que WHERE id = $1 AND djs_id = $2', [songID, userID])
   .then(() => {
-    console.log("Song Deleted");
     next();
   })
   .catch((err) => {
