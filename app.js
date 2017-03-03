@@ -4,21 +4,10 @@ const express = require('express'),
   mustache = require('mustache-express'),
   pgp = require('pg-promise')(),
   methodOverride = require('method-override'),
-  bdPars = require('body-parser'),
-  bcrypt = require('bcrypt'),
   session = require('express-session'),
+  bdPars = require('body-parser'),
   morgan = require('morgan');
-var db = pgp(process.env.DATABASE_URL || 'postgres://tajenglish@localhost:5432/quedj');
 
-//Controllers
-const USERS_ROUTER = require('./controllers/Users');
-const SESSIONS_ROUTER = require('./controllers/Sessions');
-const HOME_ROUTER = require('./controllers/Home');
-const DASHBOARDS_ROUTER = require('./controllers/Dashboards');
-const QUEUE_ROUTER = require('./controllers/Queue');
-const API_ROUTER = require('./controllers/API');
-
-const checkSession = require('./lib/helpers/checkSession');
 
 //configure express and related packages
 app.engine('html', mustache());
@@ -34,7 +23,7 @@ app.use(bdPars.json()); //body parser
 
 
 app.use(session({
-  secret: 'test',
+  secret: 'quedj',
   resave: false,
   saveUninitialized: true,
   cookie: {
@@ -42,19 +31,29 @@ app.use(session({
   }
 }));
 
+const checkSession = require('./lib/helpers/checkSession');
+
 //Redirects any user that is not logged in when visiting /users
-app.all(['/users*'], checkSession)
+app.all(['/users*','/queue*'], checkSession)
 
-//start the server
-var PORT = process.env.PORT || 3000;
-app.listen(PORT, function() {
-  console.log('Server running on port ' + PORT + '!');
-});
+//Controllers
+const USERS_ROUTER = require('./controllers/Users');
+const SESSIONS_ROUTER = require('./controllers/Sessions');
+const HOME_ROUTER = require('./controllers/Home');
+const DASHBOARDS_ROUTER = require('./controllers/Dashboards');
+const QUEUE_ROUTER = require('./controllers/Queue');
+const API_ROUTER = require('./controllers/API');
 
-
+// Define All Routes
 app.use(HOME_ROUTER);
 app.use(SESSIONS_ROUTER);
 app.use(DASHBOARDS_ROUTER);
 app.use('/Users', USERS_ROUTER);
 app.use('/Queue', QUEUE_ROUTER);
 app.use('/Api', API_ROUTER);
+
+//start the server
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log('Server running on port ' + PORT + '!');
+});
