@@ -42,7 +42,7 @@ const SESSIONS_ROUTER = require('./controllers/Sessions');
 const HOME_ROUTER = require('./controllers/Home');
 const DASHBOARDS_ROUTER = require('./controllers/Dashboards');
 const QUEUE_ROUTER = require('./controllers/Queue');
-const API_ROUTER = require('./controllers/API');
+const API_ROUTER = require('./controllers/Api');
 
 // Define All Routes
 app.use(HOME_ROUTER);
