@@ -75,7 +75,7 @@ const appendDom = (data) => {
     let location = value.location;
     let bio = value.bio;
 
-    $('#listDjs').append('<li class="collection-item avatar"> <img src="' + image + '" alt="image" class="circle"> <span class="title">'+name+'</span> <p>' + bio+ ' <br>' +'- ' + '<span class = "textColor">'+ location + '</span>' +'</p><a href="/user/'+fname+'-'+lname+'" class="textColor secondary-content">View</a>')
+    $('#listDjs').append('<li class="collection-item avatar"> <img src="' + image + '" alt="image" class="circle"> <span class="title">'+name+'</span> <p>' + bio+ ' <br>' +'- ' + '<span class = "textColor">'+ location + '</span>' +'</p><a href="/users/'+fname+'-'+lname+'" class="textColor secondary-content">View</a>')
 
   });
 }

@@ -18,7 +18,7 @@
   </nav>
 </header>
 
-<body>
+<body data-id={{user.id}}>
   <div class="row">
     <div class="col card m4 s12 ">
       <div class="card-image">
@@ -26,15 +26,12 @@
       </div>
       <span class="card-title">{{user.first_name}}</span> <span class="card-title textColor">{{user.last_name}}</span>
       <div class="card-content">
-        <p>DJ# - <span id="userNum" class="textColor">{{user.id}}</span></p>
         <p>Bio - <span class="textColor">{{user.bio}}</span></p>
         <p>Location - <span class="textColor">{{user.location}}</span></p>
         <p>Up Votes - {{user.upvotes}} </p>
         <p>Down Votes - {{user.downvotes}} </p>
       </div>
-      <!-- <div class="card-action">
-                    <a href="#">This is a link</a>
-                  </div> -->
+
     </div>
 
     <div class="col card m6 s12">

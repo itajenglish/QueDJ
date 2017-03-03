@@ -18,6 +18,7 @@ const getOneQueue = (req, res, next) => {
 // Adds songs to users que in database
 const addToQueue = (req, res, next) => {
     const data = req.body;
+    console.log(data);
     const id = data.djID;
     const Title = data.Title;
     const Artist = data.Artist;
@@ -25,13 +26,15 @@ const addToQueue = (req, res, next) => {
     const Image = data.Image;
     const userID = req.session.user.id;
 
+    console.log(req)
+
   db.none('INSERT INTO QUE (title,artist,album,img,djs_id,fans_id) VALUES ($1,$2,$3,$4,$5,$6)', [Title, Artist, Album, Image, id, userID])
   .then(() => {
     next();
   })
   .catch((err) => {
     console.log(err);
-    res.send('Ohh oh something went wrong with adding your song to the queue!');
+    res.write('Ohh oh something went wrong with adding your song to the queue!');
   })
 }
 

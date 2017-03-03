@@ -93,7 +93,6 @@ const getUserByName = (req, res, next) => {
   .catch((err) => {
       res.send('Something went wrong!');
       console.log(err);
-      next();
     })
 }
 

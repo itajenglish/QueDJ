@@ -54,7 +54,10 @@ $(document).ready(() => {
       appendDom(Title,Artist,Img,Album,Counter);
 
       $('#song-num' + Counter).on('click', () => {
-        const djID = $('#djNum').text();
+
+        const djID = $('body').data('id');
+        console.log(djID)
+
         const songData = {
           'djID': djID,
           'Title': Title,
@@ -64,7 +67,7 @@ $(document).ready(() => {
         };
 
         $.ajax({
-          url: 'https://quedj.herokuapp.com/saveQueData',
+          url: '/queue',
           type: 'POST',
           data: songData
         })
